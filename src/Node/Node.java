@@ -1,5 +1,7 @@
 package Node;
 
+import java.util.Objects;
+
 public class Node<T extends Comparable<T>>{
     private T value;
     private Color color;
@@ -17,6 +19,18 @@ public class Node<T extends Comparable<T>>{
         this.parent = parent;
         parent.setChild(this);
         color = Color.Red;
+    }
+
+    public Node(T value, Color color, Node<T> left, Node<T> right) {
+        this.value = value;
+        this.color = color;
+        setLeftChild(left);
+        setRightChild(right);
+    }
+
+    public Node(T value, Color color) {
+        this.value = value;
+        this.color = color;
     }
 
     public T value() {
@@ -59,12 +73,9 @@ public class Node<T extends Comparable<T>>{
         }
 
         this.parent = parent;
-        if (parent == null) {
-            color = Color.Black;
-            return;
+        if (parent != null) {
+            parent.setChild(this);
         }
-
-        parent.setChild(this);
     }
 
     private void setChild(Node<T> child) {
@@ -76,4 +87,32 @@ public class Node<T extends Comparable<T>>{
             right = child;
         }
     }
+
+    public void setLeftChild(Node<T> child){
+        left = child;
+        if(child != null){
+            child.parent = this;
+        }
+    }
+
+    public void setRightChild(Node<T> child){
+        right = child;
+        if(child != null){
+            child.parent = this;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node<?> node = (Node<?>) o;
+        return Objects.equals(value, node.value) && color == node.color &&
+                Objects.equals(left, node.left) && Objects.equals(right, node.right);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, color, left, right);
+    }
+
 }

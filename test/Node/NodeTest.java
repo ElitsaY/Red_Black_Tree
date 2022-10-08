@@ -48,6 +48,30 @@ class NodeTest {
         assertEquals(parent, n.parent());
     }
 
+    /*    9
+         / \
+        6  12
+          /
+         11
+    */
+    @Test
+    void constructor_CustomTree_CreatesNodeDoesNotChangeTheObject() {
+        Node<Integer> node = new Node<Integer>(9, Color.Black,
+                new Node<Integer>(6, Color.Black, null, null),
+                new Node<Integer>(12, Color.Black,
+                        new Node<Integer>(11, Color.Black, null, null),
+                        null));
+        assertEquals(9, node.value(),
+                "The root has a value of 9");
+        assertEquals(6, node.left().value(),
+                "The left child has value of 6");
+        assertEquals(12, node.right().value(),
+                "The right child has value of 12");
+        assertEquals(11, node.right().left().value(),
+                "Root's right child has a left child with value of 11. " +
+                        "Root's grandchild is 11 ;) ");
+    }
+
     @Test
     void leftColor_LeftIsNull_Black() {
         Node<Integer> n = new Node<>(3);
