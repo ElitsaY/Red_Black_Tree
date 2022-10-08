@@ -7,11 +7,21 @@ public class RBNode<T extends Comparable<T>> implements Node<T>{
     private Node<T> right;
     private Node<T> parent;
 
-    RBNode(T value) {}
+    RBNode(T value) {
+        this(value, null, null, null);
+    }
 
-    RBNode(T value, Node<T> parent) {}
+    RBNode(T value, Node<T> parent) {
+        this(value, parent, null, null);
+    }
 
-    RBNode(T value, Node<T> parent, Node<T> left, Node<T> right) {}
+    RBNode(T value, Node<T> parent, Node<T> left, Node<T> right) {
+        this.value = value;
+        this.parent = parent;
+        this.left = left;
+        this.right = right;
+        color = Color.Red;
+    }
 
     @Override
     public T value() {
