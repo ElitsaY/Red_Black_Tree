@@ -1,6 +1,6 @@
-package Node;
+package node;
 
-import Node.exception.InvalidColorException;
+import node.exception.InvalidColorException;
 
 public enum Color {
     Red(0),

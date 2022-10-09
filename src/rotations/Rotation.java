@@ -1,7 +1,7 @@
-package Rotations;
+package rotations;
 
-import Node.Node;
-import Node.Color;
+import node.Node;
+import node.Color;
 
 public class Rotation {
     public static <T extends Comparable<T>> Node<T> rotateLeft(Node<T> node){

@@ -1,7 +1,7 @@
-package Rotations;
+package rotations;
 
-import Node.Color;
-import Node.Node;
+import node.Color;
+import node.Node;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

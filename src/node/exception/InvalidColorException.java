@@ -1,4 +1,4 @@
-package Node.exception;
+package node.exception;
 
 public class InvalidColorException extends RuntimeException {
 

@@ -1,6 +1,6 @@
-package Node;
+package node;
 
-import Node.exception.InvalidColorException;
+import node.exception.InvalidColorException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

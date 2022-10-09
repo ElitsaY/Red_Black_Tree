@@ -1,4 +1,4 @@
-package Node;
+package node;
 
 import java.util.Objects;
 
