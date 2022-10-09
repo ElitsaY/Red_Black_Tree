@@ -80,6 +80,27 @@ class NodeTest {
     }
 
     @Test
+    void leftColor_LeftIsRed_Red() {
+        Node<Integer> n = new Node<Integer>(3, null, new Node<Integer>(2, Color.Red), null);
+
+        assertEquals(Color.Red, n.leftColor(), "color of left child is red");
+    }
+
+    @Test
+    void rightColor_RightIsNull_Black() {
+        Node<Integer> n = new Node<>(3);
+
+        assertEquals(Color.Black, n.rightColor(), "color of nil child should be black");
+    }
+
+    @Test
+    void rightColor_RightIsRed_Red() {
+        Node<Integer> n = new Node<Integer>(3, null, null, new Node<Integer>(4, Color.Red));
+
+        assertEquals(Color.Red, n.rightColor(), "color of right child is red");
+    }
+
+    @Test
     void setParent_ParentOfNodeToBeNode_Throws() {
         Node<Integer> n = new Node<>(6);
 
@@ -87,13 +108,12 @@ class NodeTest {
     }
 
     @Test
-    void setParent_ParentIsNull_ColorIsBlack() {
+    void setParent_ParentIsNull_ParentSetToNull() {
         Node<Integer> n = new Node<>(7, new Node<>(10));
 
         n.setParent(null);
 
         assertNull(n.parent());
-        assertEquals(Color.Black, n.color(), "color should be changed to black");
     }
 
     @Test
@@ -104,9 +124,30 @@ class NodeTest {
         n.setParent(parent);
 
         assertEquals(n, parent.left(), "node should be left child of parent");
-        assertEquals(Color.Black, parent.leftColor(), "node color should not be changed");
         assertNull(parent.right(), "right child should be null");
         assertEquals(parent, n.parent());
+    }
+
+    @Test
+    void setParent_NodeIsRightChild_NodeNotAChildOfOldParent() {
+        Node<Integer> oldParent = new Node<>(5);
+        Node<Integer> parent = new Node<>(4);
+        Node<Integer> node = new Node<Integer>(8, oldParent);
+
+        node.setParent(parent);
+
+        assertNull(oldParent.right(), "node shouldn't be a child of old parent");
+    }
+
+    @Test
+    void setParent_NodeIsLeftChild_NodeNotAChildOfOldParent() {
+        Node<Integer> oldParent = new Node<>(5);
+        Node<Integer> parent = new Node<>(4);
+        Node<Integer> node = new Node<Integer>(3, oldParent);
+
+        node.setParent(parent);
+
+        assertNull(oldParent.left(), "node shouldn't be a child of old parent");
     }
 
     @Test
@@ -117,9 +158,46 @@ class NodeTest {
         n.setParent(parent);
 
         assertEquals(n, parent.right(), "node should be right child of parent");
-        assertEquals(Color.Black, parent.rightColor(), "node color should not be changed");
         assertNull(parent.left(), "left child should be null");
         assertEquals(parent, n.parent());
+    }
+
+    @Test
+    void equals_NodesAreEqual_True() {
+        Node<Integer> first = new Node<Integer>(3, Color.Black,
+                new Node<>(2),
+                new Node<Integer>(5, Color.Black,
+                                        new Node<>(4),
+                                        new Node<>(7)));
+
+        Node<Integer> second = new Node<Integer>(3, Color.Black,
+                new Node<>(2),
+                new Node<Integer>(5, Color.Black,
+                        new Node<>(4),
+                        new Node<>(7)));
+
+        assertEquals(first, second, "Nodes are equal");
+    }
+
+    @Test
+    void equals_NodesAreDifferent_False() {
+        Node<Integer> first = new Node<Integer>(3, Color.Black,
+                new Node<>(2),
+                new Node<Integer>(5, Color.Black,
+                        new Node<>(4),
+                        new Node<>(7)));
+
+        Node<Integer> second = new Node<Integer>(3, Color.Black,
+                new Node<Integer>(1, Color.Black,
+                        new Node<>(-1),
+                        new Node<>(2)),
+                new Node<Integer>(5, Color.Black,
+                        new Node<>(4),
+                        new Node<Integer>(7, Color.Black,
+                                new Node<>(6),
+                                new Node<>(10))));
+
+        assertNotEquals(first, second, "Nodes are different");
     }
 
 

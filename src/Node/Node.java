@@ -67,12 +67,16 @@ public class Node<T extends Comparable<T>>{
         return color;
     }
 
-    public void setParent(Node<T> parent) {
-        if (parent == this) {
+    public void setParent(Node<T> newParent) {
+        if (newParent == this) {
             throw new IllegalArgumentException("can't set parent of this to this");
         }
 
-        this.parent = parent;
+        if (parent != null) {
+            parent.removeChild(this);
+        }
+
+        parent = newParent;
         if (parent != null) {
             parent.setChild(this);
         }
@@ -88,14 +92,24 @@ public class Node<T extends Comparable<T>>{
         }
     }
 
-    public void setLeftChild(Node<T> child){
+    private void removeChild(Node<T> child) {
+        int compareRes = child.value.compareTo(value);
+        if (compareRes < 0) {
+            left = null;
+        }
+        else if (compareRes > 0) {
+            right = null;
+        }
+    }
+
+    private void setLeftChild(Node<T> child){
         left = child;
         if(child != null){
             child.parent = this;
         }
     }
 
-    public void setRightChild(Node<T> child){
+    private void setRightChild(Node<T> child){
         right = child;
         if(child != null){
             child.parent = this;
