@@ -25,11 +25,11 @@ public class Operations {
         return false;
     }
 
-    public static <T extends Comparable<T>> boolean add(Node<T> tree, T value) {
+    public static <T extends Comparable<T>> Node<T> add(Node<T> tree, T value) {
         throw new UnsupportedOperationException();
     }
 
-    public static <T extends Comparable<T>> boolean remove(Node<T> tree, T value) {
+    public static <T extends Comparable<T>> Node<T> remove(Node<T> tree, T value) {
         throw new UnsupportedOperationException();
     }
 }
