@@ -17,7 +17,7 @@ public class Node<T extends Comparable<T>>{
     public Node(T value, Node<T> parent) {
         this.value = value;
         this.parent = parent;
-        parent.setChild(this);
+        setParent(parent);
         color = Color.Red;
     }
 
@@ -85,6 +85,11 @@ public class Node<T extends Comparable<T>>{
             parent.setChild(this);
         }
     }
+
+    public boolean isRoot() {
+        return parent() == null;
+    }
+
 
     private void setChild(Node<T> child) {
         int compareRes = child.value.compareTo(value);

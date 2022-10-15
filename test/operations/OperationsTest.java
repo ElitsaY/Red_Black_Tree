@@ -2,6 +2,7 @@ package operations;
 
 import node.Color;
 import node.Node;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +16,7 @@ class OperationsTest {
 
     @Test
     void height_singleNode_isOne() {
-        assertEquals(1, Operations.height(new Node(3)), "Single node's height is 1");
+        assertEquals(1, Operations.height(new Node<>(3)), "Single node's height is 1");
     }
 
     /*
@@ -110,7 +111,7 @@ class OperationsTest {
             /       -> AFTER ADDING 1 ->       /   \
           [2]                                [1]   [3]
      */
-
+    @Test
     void add_addingToTheLeft_theTreeIsBalancedWithTwoRedDescendants() {
         Node<Integer> expected = new Node<Integer>(2, Color.Black,
                 new Node<Integer>(1, Color.Red),
@@ -133,6 +134,7 @@ class OperationsTest {
                                        /
                                      [1]
      */
+   @Test
    void add_addToTheRight_LeftLeaningPropertyMaintained() {
         Node<Integer> actual = new Node<Integer>(1, Color.Black);
 
@@ -155,7 +157,8 @@ class OperationsTest {
                      /  \
                    [8]  [12]
     */
-   void add_addDuplicateValue_TheValueIsNotAdded(){
+    @Test
+    void add_addDuplicateValue_TheValueIsNotAdded(){
        Node<Integer> actual = new Node<Integer>(10, Color.Black,
                new Node<Integer>(7, Color.Black,
                        new Node<Integer>(5, Color.Black) ,
@@ -184,11 +187,11 @@ class OperationsTest {
                                                     /
                                                   [3]
      */
-
+    @Test
     void add_addingToTheRightWithRedParent_PushBlackAndChangeColorOfRoot() {
         Node<Integer> expected = new Node<>(2, Color.Black,
-                new Node<>(1, Color.Red),
-                new Node<>(4, Color.Red,
+                new Node<>(1, Color.Black),
+                new Node<>(4, Color.Black,
                         new Node<>(3, Color.Red), null));
 
         Node<Integer> actual = new Node<Integer>(2, Color.Black,
@@ -211,7 +214,7 @@ class OperationsTest {
                                            /
                                          [1]
      */
-
+    @Test
     void add_AddingToTheLeftWithRedParent_PushBlackAndChangeColorOfRoot() {
         Node<Integer> actual = new Node<Integer>(5, Color.Black,
                 new Node<Integer> (3, Color.Red),
@@ -228,26 +231,31 @@ class OperationsTest {
         assertEquals(expected, actual,
                 "After push black operation of the actual tree. Only the newly added node is red");
     }
-    
+
 
     /*
          Adding elements as following: 32, 24, 18, 16, 12, 8, 4
+         []  = red node
+          _  = black node
 
-                  16
-               /     \
-             [8]     [18]
-            /  \     /  \
-           4   12   24  32
+                 24
+               /    \
+            [16]     32
+            /  \
+           8    18
+          /  \
+       [4]   [12]
      */
 
+    @Test
     void add_AddingMultiple_theTreeIsValidRedBlackTree() {
-        Node<Integer> expected = new Node<Integer>(16, Color.Black,
-                new Node<Integer>(8, Color.Red,
-                        new Node<Integer>(4, Color.Black),
-                        new Node<Integer>(12, Color.Black)),
-                new Node<Integer>(18, Color.Red,
-                        new Node<Integer>(24, Color.Black),
-                        new Node<Integer>(32, Color.Black)));
+        Node<Integer> expected = new Node<Integer>(24, Color.Black,
+                new Node<Integer>(16, Color.Red,
+                        new Node<Integer>(8, Color.Black,
+                                new Node<Integer>(4, Color.Red),
+                                new Node<Integer>(12, Color.Red)),
+                        new Node<Integer>(18, Color.Black)),
+                new Node<Integer>(32, Color.Black));
 
         //starting only with the root
         Node<Integer> actual = new Node<Integer>(32, Color.Black);
@@ -261,5 +269,4 @@ class OperationsTest {
         assertEquals(expected, actual,
                 "After multiples adds the actual tree is valid RB tree. All operations tested");
     }
-
 }

@@ -29,6 +29,13 @@ class NodeTest {
     }
 
     @Test
+    void constructor_WithValueAndNullParent_ParentIsNull() {
+        Node<Integer> n = new Node<>(5, (Node<Integer>)null);
+
+        assertNull(n.parent(), "Constructor with null parent should make a node with null parent");
+    }
+
+    @Test
     void constructor_ValueIsLessThanParentValue_NodeAddedAsLeftChild() {
         Node<Integer> parent = new Node<>(4);
         Node<Integer> n = new Node<Integer>(3, parent);
