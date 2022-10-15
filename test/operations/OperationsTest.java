@@ -77,19 +77,19 @@ class OperationsTest {
          [] = red node
           _ = black node
 
-                   7
-                  / \
-                 5   10
-                    /  \
-                  [8]  [12]
+                   10
+                  /  \
+                 7   12
+                / \
+              [8] [12]
         */
     @Test
     void contains_treeWithoutEleven_returnsFalse() {
         Node<Integer> tree = new Node<Integer>(10, Color.Black,
                 new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(5, Color.Black) ,
+                        new Node<Integer>(5, Color.Red),
                         new Node<Integer>(8, Color.Red)),
-                new Node<Integer>(12, Color.Red));
+                new Node<Integer>(12, Color.Black));
         assertFalse(Operations.contains(tree, 11), "Tree without leaf 11 should not contain 11");
     }
 
@@ -151,25 +151,25 @@ class OperationsTest {
         [] = red node
         _ = black node
 
-                    7
-                   / \
-                  5   10
-                     /  \
-                   [8]  [12]
+                    10
+                   /  \
+                  7    12
+                /   \
+              [5]   [8]
     */
     @Test
     void add_addDuplicateValue_TheValueIsNotAdded(){
        Node<Integer> actual = new Node<Integer>(10, Color.Black,
                new Node<Integer>(7, Color.Black,
-                       new Node<Integer>(5, Color.Black) ,
+                       new Node<Integer>(5, Color.Red) ,
                        new Node<Integer>(8, Color.Red)),
-               new Node<Integer>(12, Color.Red));
+               new Node<Integer>(12, Color.Black));
 
        Node<Integer> expected = new Node<Integer>(10, Color.Black,
                new Node<Integer>(7, Color.Black,
-                       new Node<Integer>(5, Color.Black) ,
+                       new Node<Integer>(5, Color.Red) ,
                        new Node<Integer>(8, Color.Red)),
-               new Node<Integer>(12, Color.Red));
+               new Node<Integer>(12, Color.Black));
 
        actual = Operations.add(actual, 10);
        
@@ -268,5 +268,115 @@ class OperationsTest {
 
         assertEquals(expected, actual,
                 "After multiples adds the actual tree is valid RB tree. All operations tested");
+    }
+
+
+    /*
+       [] = red node
+        _ = black node
+
+               5                                    5
+              / \                                  / \
+             3   6    -> AFTER REMOVING 1 ->      3   6
+            /
+          [1]
+    */
+    @Test
+    void remove_redLeaf_leavesTheTreeBalanced() {
+        Node<Integer> expected = new Node<Integer>(5, Color.Black,
+                new Node<Integer> (3, Color.Black),
+                new Node<Integer>(6, Color.Black));
+
+        Node<Integer> actual = new Node<Integer>(5, Color.Black,
+                new Node<Integer> (3, Color.Black,
+                        new Node<Integer>(1, Color.Red),
+                        null),
+                new Node<Integer>(6, Color.Black));
+
+        actual = Operations.remove(actual, 1);
+
+        assertEquals(expected, actual,
+                "Removing the leaf doesn't violate any property!");
+    }
+
+
+    void remove_blackLeaf_leavesTheTreeBalanced(){
+
+    }
+
+    /*
+            2                                      3
+           / \          -> AFTER REMOVING 2 ->    /
+          1   3                                  1
+     */
+
+    @Test
+    void remove_root_theTreesBalanced() {
+        Node<Integer> expected = new Node<Integer>(3, Color.Black,
+                new Node<>(1, Color.Black),
+                null);
+
+        Node<Integer> actual = new Node<Integer>(2, Color.Black,
+                new Node<>(1, Color.Black),
+                new Node<>(3, Color.Black));
+
+        actual = Operations.remove(actual, 2);
+
+        assertEquals(expected, actual, "Removing root should leave the tree balanced");
+    }
+
+
+
+    /*
+            2                                      2
+           / \          -> AFTER REMOVING 3 ->    /
+          1   3                                  1
+     */
+
+    @Test
+    void remove_root2_theTreesBalanced() {
+        Node<Integer> expected = new Node<Integer>(2, Color.Black,
+                new Node<>(1, Color.Black),
+                null);
+
+        Node<Integer> actual = new Node<Integer>(2, Color.Black,
+                new Node<>(1, Color.Black),
+                new Node<>(3, Color.Black));
+
+        actual = Operations.remove(actual, 3);
+
+        assertEquals(expected, actual, "Removing root should leave the tree balanced");
+    }
+
+
+   /*
+    [] = red node
+    _ = black node
+
+            7                                         8
+           / \                                       / \
+          5   10      -> AFTER REMOVING 7  ->       5   12
+             /  \                                      /
+           [8]  [12]                                 [10]
+    */
+
+    @Test
+    void remove_rootOfLargerTree_theTreeIsBalanced() {
+        Node<Integer> expected = new Node<Integer>(8, Color.Black,
+                new Node<>(5, Color.Black),
+                new Node<>(12, Color.Black,
+                        new Node<>(10, Color.Red),
+                        null));
+
+        Node<Integer> actual = new Node<Integer>(7, Color.Black,
+                new Node<Integer>(5, Color.Black),
+                new Node<Integer>(10, Color. Black,
+                        new Node<Integer>(8, Color.Red),
+                        new Node<Integer>(12, Color.Red)));
+
+        actual = Operations.remove(actual, 7);
+
+        assertEquals(expected, actual, "");
+
     }
 }

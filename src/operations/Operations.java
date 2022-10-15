@@ -115,7 +115,267 @@ public class Operations {
         return node;
     }
 
+    /*
+    void splice(Node *u) {
+    Node *s, *p;
+    if (u->left != nil) {
+      s = u->left;
+    } else {
+      s = u->right;
+    }
+    if (u == r) {
+      r = s;
+      p = nil;
+    } else {
+      p = u->parent;
+      if (p->left == u) {
+        p->left = s;
+      } else {
+        p->right = s;
+      }
+    }
+    if (s != nil) {
+      s->parent = p;
+    }
+    n--;
+  }
+     */
+
+    private static <T extends Comparable<T>> void splice(Node<T> node){
+        Node<T> replaceNode = node.left() != null ? node.left() : node.right();
+
+        if (node.isRoot()) {
+            if (replaceNode != null) {
+                replaceNode.setParent(null);
+            }
+            //return replaceNode;
+        }
+        else if (replaceNode != null) {
+            replaceNode.setParent(node.parent());
+        }
+//        else {
+//            return null;
+//        }
+
+        //return getRoot(replaceNode);
+    }
+
+    //finds the leftest node in right subtree
+    private static <T extends Comparable<T>> Node<T> getNodeWithOneLeaf(Node<T> node){
+        while(node.left() != null) {
+            node = node.left();
+        }
+        return node;
+    }
+
+    /*
+      void removeFixup(Node *u) {
+        while (u->colour > black) {
+          if (u == r) {
+            u->colour = black;
+          } else if (u->parent->left->colour == red) {
+            u = removeFixupCase1(u);
+          } else if (u == u->parent->left) {
+            u = removeFixupCase2(u);
+          } else {
+            u = removeFixupCase3(u);
+          }
+        }
+        if (u != r) { // restore left-leaning property, if needed
+          Node *w = u->parent;
+          if (w->right->colour == red && w->left->colour == black) {
+            flipLeft(w);
+          }
+        }
+      }
+     */
+
+    private static <T extends Comparable<T>> Node<T> fixUpDoubleBlack(Node<T> node){
+        while (node.color() == Color.DoubleBlack) {
+            if (node.isRoot()) {
+                node.setColor(Color.Black);
+            }
+            else if (getNodeColor(node.parent().left()) == Color.Red) {
+                node = removeFixUpCase1(node);
+            }
+            else if (node.equals(node.parent().left())) {
+                node = removeFixUpCase2(node);
+            }
+            else {
+                node = removeFixUpCase3(node);
+            }
+        }
+        return node;
+    }
+    private static <T extends Comparable<T>> Node<T> removeFixUp(Node<T> node){
+        node = fixUpDoubleBlack(node);
+
+        if (!node.isRoot()) { // restore left-leaning property, if needed
+            if (getNodeColor(node.parent().right()) == Color.Red &&
+                getNodeColor(node.parent().left()) == Color.Black) {
+                Rotation.flipLeft(node.parent());
+            }
+        }
+        return node;
+    }
+
+    private static <T extends Comparable<T>> Node<T> removeFixUpCase1(Node<T> node) {
+        Rotation.flipRight(node.parent());
+        return node;
+    }
+
+    /*
+      Node* removeFixupCase2(Node *u) {
+        Node *w = u->parent;
+        Node *v = w->right;
+        pullBlack(w); // w->left
+        flipLeft(w); // w is now red
+        Node *q = w->right;
+        if (q->colour == red) { // q-w is red-red
+          rotateLeft(w);
+          flipRight(v);
+          pushBlack(q);
+          if (v->right->colour == red)
+            flipLeft(v);
+          return q;
+        } else {
+          return v;
+        }
+      }
+     */
+    private static <T extends Comparable<T>> Node<T> removeFixUpCase2(Node<T> node) {
+        Node<T> parent = node.parent();
+        Node<T> sibling = parent.right();
+        Node<T> newParent;
+
+        Rotation.pullBlack(parent);
+        Rotation.flipLeft(parent);
+
+        newParent = parent.right();
+        if (newParent.color() == Color.Red) {
+            Rotation.rotateLeft(parent);
+            Rotation.flipRight(sibling);
+            Rotation.pushBlack(newParent);
+
+            if (getNodeColor(sibling.right()) == Color.Red) {
+                Rotation.flipLeft(sibling);
+            }
+            return newParent;
+        }
+
+        return sibling;
+    }
+
+    /*
+     Node* removeFixupCase3(Node *u) {
+    Node *w = u->parent;
+    Node *v = w->left;
+    pullBlack(w);
+    flipRight(w);            // w is now red
+    Node *q = w->left;
+    if (q->colour == red) { // q-w is red-red
+      rotateRight(w);
+      flipLeft(v);
+      pushBlack(q);
+      return q;
+    } else {
+      if (v->left->colour == red) {
+        pushBlack(v); // both v's children are red
+        return v;
+      } else { // ensure left-leaning
+        flipLeft(v);
+        return w;
+      }
+    }
+  }
+     */
+    private static <T extends Comparable<T>> Node<T> removeFixUpCase3(Node<T> node) {
+        Node<T> parent = node.parent();
+        Node<T> leftChild = parent.left();
+
+        Rotation.pullBlack(parent);
+        parent = Rotation.flipRight(parent);
+        Node<T> newLeftChild = parent.left();
+
+        if(newLeftChild.color() == Color.Red) {
+            parent = Rotation.rotateRight(parent);
+            leftChild = Rotation.flipLeft(leftChild);
+            Rotation.pushBlack(newLeftChild);
+            return newLeftChild;
+        }
+
+        if(leftChild.left().color() == Color.Red){
+            Rotation.pushBlack(leftChild); // both leftChild's children are red
+            return leftChild;
+        }
+        else{
+            leftChild = Rotation.flipLeft(leftChild);
+            return parent;
+        }
+    }
+
+
+    /*
+    bool remove(T x) {
+    Node *u = findLast(x);
+    if (u == nil || compare(u->x, x) != 0)
+      return false;
+    Node *w = u->right;
+    if (w == nil) {
+      w = u;
+      u = w->left;
+    } else {
+      while (w->left != nil)
+        w = w->left;
+      u->x = w->x;
+      u = w->right;
+    }
+    splice(w);
+    u->colour += w->colour;
+    u->parent = w->parent;
+    delete w;
+    removeFixup(u);
+    return true;
+  }
+     */
+
     public static <T extends Comparable<T>> Node<T> remove(Node<T> tree, T value) {
-        throw new UnsupportedOperationException();
+        Node<T> node = getNode(tree, value);
+        boolean shouldNodeBeNull = false;
+
+        if (node == null || !node.value().equals(value)) {
+            return null;
+        }
+
+        Node<T> toRemove = node.right();
+        if (toRemove == null) {
+            toRemove = node;
+            //node = node.left();
+            if (node.left() == null) {
+                shouldNodeBeNull = true;
+            }
+        }
+        else {
+            toRemove = getNodeWithOneLeaf(toRemove);
+            node.setValue(toRemove.value());
+            node = toRemove; // parent
+            if (toRemove.right() == null) {
+                shouldNodeBeNull = true;
+            }
+        }
+        //tree = splice(toRemove);
+        splice(toRemove);
+
+        if (shouldNodeBeNull) {
+            node.setColor(Color.Black);
+        }
+        else {
+            node.setColor(node.color().addValue(getNodeColor(toRemove)));
+        }
+        node.setParent(toRemove.parent());
+
+        removeFixUp(node);
+        node.setParent(null);
+        return tree;
     }
 }

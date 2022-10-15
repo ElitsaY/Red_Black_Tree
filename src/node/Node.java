@@ -33,6 +33,9 @@ public class Node<T extends Comparable<T>>{
         this.color = color;
     }
 
+    public void setValue(T value){
+        this.value = value;
+    }
     public T value() {
         return value;
     }
