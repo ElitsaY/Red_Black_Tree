@@ -119,6 +119,18 @@ public class Node<T extends Comparable<T>>{
     }
 
     /**
+     * Returns the root of the tree which the node is in.
+     * @return root of the tree
+     */
+    public Node<T> getRoot() {
+        Node<T> temp = this;
+        while (!temp.isRoot()) {
+                temp = temp.parent();
+        }
+        return temp;
+    }
+
+    /**
      * @return color of node
      */
     public Color color() {

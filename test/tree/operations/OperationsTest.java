@@ -823,4 +823,38 @@ class OperationsTest {
 
         assertEquals(expected, actual);
     }
+
+    /*
+            10                                            7
+           /  \                                         /   \
+          7   12          -> AFTER REMOVING 12 ->      4    10
+         / \   \                                       \   /  \
+       [4]  8  15                                      5  8   15
+        \
+         5
+     */
+    @Test
+    void remove_BlackNodeWithBlackChild_fixUpCase3SiblingWithRedLeftChild() {
+        Node<Integer> expected = new Node<>(7, Color.Black,
+                new Node<>(4, Color.Black,
+                        null,
+                        new Node<>(5, Color.Black)),
+                new Node<>(10, Color.Black,
+                        new Node<>(8, Color.Black),
+                        new Node<>(15, Color.Black)));
+
+        Node<Integer> actual = new Node<>(10, Color.Black,
+                new Node<>(7, Color.Black,
+                        new Node<>(4, Color.Red,
+                                null,
+                                new Node<>(5, Color.Black)),
+                        new Node<>(8, Color.Black)),
+                new Node<>(12, Color.Black,
+                        null,
+                        new Node<>(15, Color.Black)));
+
+        actual = Operations.remove(actual, 12);
+
+        assertEquals(expected, actual);
+    }
 }

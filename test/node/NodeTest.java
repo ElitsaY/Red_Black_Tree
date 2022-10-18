@@ -170,6 +170,30 @@ class NodeTest {
     }
 
     @Test
+    void setParent_ParentHasLeftChild_OldChildIsDetachedFromParent() {
+        Node<Integer> parent = new Node<>(15, Color.Black);
+        Node<Integer> oldChild = new Node<>(12, parent);
+        Node<Integer> node = new Node<>(11, Color.Black);
+
+        node.setParent(parent);
+
+        assertNull(oldChild.parent());
+    }
+
+    @Test
+    void setParent_ParentHasRightChild_OldChildIsDetachedFromParent() {
+        Node<Integer> parent = new Node<>(15, Color.Black);
+        Node<Integer> oldChild = new Node<>(17, parent);
+        Node<Integer> node = new Node<>(18, Color.Black);
+
+        node.setParent(parent);
+
+        assertNull(oldChild.parent());
+    }
+
+
+
+    @Test
     void equals_NodesAreEqual_True() {
         Node<Integer> first = new Node<>(3, Color.Black,
                 new Node<>(2),
@@ -221,5 +245,36 @@ class NodeTest {
         assertFalse(nl.isLeaf(), "node isn't a leaf");
     }
 
+    @Test
+    void isRoot_NodeIsRoot_True() {
+        Node<Integer> n = new Node<>(12, Color.Black);
+
+        assertTrue(n.isRoot());
+    }
+
+    @Test
+    void isRoot_NodeIsNotRoot_False() {
+        Node<Integer> parent = new Node<>(12, Color.Black);
+        Node<Integer> n = new Node<>(10, parent);
+
+        assertFalse(n.isRoot());
+    }
+
+    @Test
+    void getRoot_NodeIsRoot_ReturnsNode() {
+        Node<Integer> r = new Node<>(12, Color.Black);
+
+        assertEquals(r, r.getRoot());
+    }
+
+    @Test
+    void getRoot_NodeIsNotTheRoot_ReturnsRoot() {
+        Node<Integer> r = new Node<>(12, Color.Black);
+        Node<Integer> grandparent = new Node<>(14, r);
+        Node<Integer> parent = new Node<>(16, grandparent);
+        Node<Integer> node = new Node<>(18, parent);
+
+        assertEquals(r, node.getRoot());
+    }
 
 }

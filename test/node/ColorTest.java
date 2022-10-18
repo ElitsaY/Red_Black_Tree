@@ -52,4 +52,38 @@ class ColorTest {
         assertThrows(InvalidColorException.class, () -> c.addValue(Color.Black));
     }
 
+    @Test
+    void nextColor_Red_ReturnsBlack() {
+        assertEquals(Color.Black, Color.Red.nextColor());
+    }
+
+    @Test
+    void nextColor_Black_ReturnsDoubleBlack() {
+        assertEquals(Color.DoubleBlack, Color.Black.nextColor());
+    }
+
+    @Test
+    void prevColor_Black_ReturnsRed() {
+        assertEquals(Color.Red, Color.Black.prevColor());
+    }
+
+    @Test
+    void prevColor_DoubleBlack_ReturnsBlack() {
+        assertEquals(Color.Black, Color.DoubleBlack.prevColor());
+    }
+
+    @Test
+    void of_Value0_Red() {
+        assertEquals(Color.Red, Color.of(0));
+    }
+
+    @Test
+    void of_Value1_Black() {
+        assertEquals(Color.Black, Color.of(1));
+    }
+
+    @Test
+    void of_Value2_DoubleBlack() {
+        assertEquals(Color.DoubleBlack, Color.of(2));
+    }
 }

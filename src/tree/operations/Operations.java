@@ -4,9 +4,13 @@ import node.Node;
 import node.Color;
 import rotations.Rotation;
 
-import java.util.NoSuchElementException;
-
 public class Operations {
+    /**
+     * Returns height of the tree.
+     * @param tree root of the tree
+     * @return height of the tree
+     * @param <T> the type of value
+     */
     public static <T extends Comparable<T>> int height(Node<T> tree) {
         if (tree == null) {
             return 0;
@@ -14,12 +18,26 @@ public class Operations {
         return 1 + Math.max(height(tree.left()), height(tree.right()));
     }
 
+    /**
+     * Checks if value is contained in the tree.
+     * @param tree root of the tree
+     * @param value value to search in the tree
+     * @return true if value is in the tree, false otherwise
+     * @param <T> type of value
+     */
     public static <T extends Comparable<T>> boolean contains(Node<T> tree, T value) {
         Node<T> result = getNode(tree, value);
         return result != null && result.value().equals(value);
     }
 
-    private static <T extends Comparable<T>> Node<T> binaryTreeAdd(Node<T> tree, T value) {
+    /**
+     * Performs a binary tree insertion.
+     * @param tree root of the tree to insert in
+     * @param value value to add
+     * @return the new node
+     * @param <T> type of the value
+     */
+    public static <T extends Comparable<T>> Node<T> binaryTreeAdd(Node<T> tree, T value) {
         Node<T> parentNode = getNode(tree, value);
         if (parentNode != null && parentNode.value().equals(value)) {
             //value is already in the tree
@@ -30,12 +48,12 @@ public class Operations {
     }
 
     /**
-     *
-     * @param tree
-     * @param value
-     * @return if node with such value exists, returns it
-     * Else returns the eventual parent of a node with the given value
-     * @param <T>
+     * Searches for a node with the given value.
+     * @param tree root of the tree
+     * @param value value of the new node
+     * @return If node with such value exists, returns it.
+     * Else returns the eventual parent of a node with the given value.
+     * @param <T> the type of value
      */
     public static <T extends Comparable<T>> Node<T> getNode(Node<T> tree, T value)
     {
@@ -55,6 +73,14 @@ public class Operations {
         return prev;
     }
 
+    /**
+     * Adds the value to the tree if it isn't in it.
+     * If the tree is empty, returns the node with the value.
+     * @param tree root of the tree
+     * @param value value to add
+     * @return the new root of tree
+     * @param <T> type of the value
+     */
     public static <T extends Comparable<T>> Node<T> add(Node<T> tree, T value) {
         if (tree == null) {
             return new Node<>(value, Color.Black);
@@ -66,10 +92,16 @@ public class Operations {
         }
 
         //fixing the left leaning property
-        return addFixUp(tree, newNode);
+        return addFixUp(newNode);
     }
 
-    private static <T extends Comparable<T>> Node<T> addFixUp(Node<T> root, Node<T> node) {
+    /**
+     * Balances the tree and ensures left-leaning property.
+     * @param node the added node
+     * @return the root of the tree
+     * @param <T> type of value
+     */
+    public static <T extends Comparable<T>> Node<T> addFixUp(Node<T> node) {
         Node<T> parentNode = null;
         Node<T> grandParent = null;
 
@@ -100,19 +132,10 @@ public class Operations {
             }
         }
 
-        return getRoot(root);
+        return node.getRoot();
     }
 
-
-    private static <T extends Comparable<T>> Node<T> getRoot (Node<T> node) {
-        while (!node.isRoot()) {
-            node = node.parent();
-        }
-        return node;
-    }
-
-    //finds the leftest node in right subtree
-    private static <T extends Comparable<T>> Node<T> getNodeWithOneLeaf(Node<T> node){
+    private static <T extends Comparable<T>> Node<T> getSmallestNodeInSubtree(Node<T> node){
         while(node.left() != null) {
             node = node.left();
         }
@@ -145,7 +168,7 @@ public class Operations {
                 Rotation.flipLeft(node.parent());
             }
         }
-        return getRoot(node);
+        return node.getRoot();
     }
 
     private static <T extends Comparable<T>> Node<T> removeFixUpCase1(Node<T> node) {
@@ -204,6 +227,13 @@ public class Operations {
         }
     }
 
+    /**
+     * Removes the value from the tree.
+     * @param tree root of the tree
+     * @param value value to remove
+     * @return the new root of the tree
+     * @param <T> type of value
+     */
     public static <T extends Comparable<T>> Node<T> remove(Node<T> tree, T value) {
         Node<T> node = getNode(tree, value);
 
@@ -215,10 +245,17 @@ public class Operations {
             return null;
         }
 
-        return removeNode(tree, node);
+        return removeNode(node);
     }
 
-    public static <T extends Comparable<T>> Node<T> removeNode(Node<T> tree, Node<T> node) {
+    /**
+     * Removes the node from the tree.
+     * Balances the tree and ensures left-leaning property.
+     * @param node node to remove
+     * @return new root of the tree
+     * @param <T> type of value
+     */
+    public static <T extends Comparable<T>> Node<T> removeNode(Node<T> node) {
         Node<T> toRemove = node;
         Node<T> fixUpStartNode;
 
@@ -226,7 +263,7 @@ public class Operations {
             fixUpStartNode = node.left();
         }
         else {
-            toRemove = getNodeWithOneLeaf(node.right());
+            toRemove = getSmallestNodeInSubtree(node.right());
             node.setValue(toRemove.value());
             fixUpStartNode = toRemove.right();
         }

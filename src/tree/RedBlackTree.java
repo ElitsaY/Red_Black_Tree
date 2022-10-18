@@ -43,7 +43,7 @@ public class RedBlackTree<T extends Comparable<T>> {
             return;
         }
 
-        root = Operations.removeNode(root, node);
+        root = Operations.removeNode(node);
         --size;
     }
 
