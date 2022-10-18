@@ -207,6 +207,19 @@ class NodeTest {
         assertNotEquals(first, second, "Nodes are different");
     }
 
+    @Test
+    void isLeaf_NodeIsALeaf_True() {
+        Node<Integer> leaf = new Node<>(2);
+
+        assertTrue(leaf.isLeaf(), "node is a leaf");
+    }
+
+    @Test
+    void isLeaf_NodeIsNotALeaf_False() {
+        Node<Integer> nl = new Node<>(2, Color.Black, new Node<>(2), null);
+
+        assertFalse(nl.isLeaf(), "node isn't a leaf");
+    }
 
 
 }

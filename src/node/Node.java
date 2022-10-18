@@ -16,7 +16,6 @@ public class Node<T extends Comparable<T>>{
 
     public Node(T value, Node<T> parent) {
         this.value = value;
-        this.parent = parent;
         setParent(parent);
         color = Color.Red;
     }
@@ -66,6 +65,14 @@ public class Node<T extends Comparable<T>>{
         return right.color();
     }
 
+    public static <T extends Comparable<T>> Color getColor(Node<T> node) {
+        if (node == null) {
+            return Color.Black;
+        }
+        return node.color();
+    }
+
+
     public Color color() {
         return color;
     }
@@ -78,9 +85,12 @@ public class Node<T extends Comparable<T>>{
         if (newParent == this) {
             throw new IllegalArgumentException("can't set parent of this to this");
         }
+        else if (newParent == parent) {
+            return;
+        }
 
         if (parent != null) {
-            parent.removeChild(this);
+            parent.removeChildByValue(value);
         }
 
         parent = newParent;
@@ -93,10 +103,11 @@ public class Node<T extends Comparable<T>>{
         return parent() == null;
     }
 
+    public boolean isLeaf() { return left == null && right == null;}
+
 
     private void setChild(Node<T> child) {
-        int compareRes = child.value.compareTo(value);
-
+        int compareRes = child.value().compareTo(value);
         if (compareRes < 0) {
             if (left != null) {
                 left.parent = null;
@@ -111,24 +122,23 @@ public class Node<T extends Comparable<T>>{
         }
     }
 
-    private void removeChild(Node<T> child) {
-        int compareRes = child.value.compareTo(value);
-        if (compareRes < 0) {
+    private void removeChildByValue(T childValue) {
+        if (left != null && Objects.equals(childValue, left.value)) {
             left = null;
         }
-        else if (compareRes > 0) {
+        else if (right != null && Objects.equals(childValue, right.value)) {
             right = null;
         }
     }
 
-    private void setLeftChild(Node<T> child){
+    public void setLeftChild(Node<T> child){
         left = child;
         if(child != null){
             child.parent = this;
         }
     }
 
-    private void setRightChild(Node<T> child){
+    public void setRightChild(Node<T> child){
         right = child;
         if(child != null){
             child.parent = this;

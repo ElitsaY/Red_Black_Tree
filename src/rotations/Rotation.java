@@ -17,13 +17,21 @@ public class Rotation {
     }
 
     public static <T extends Comparable<T>> Node<T> rotateRight(Node<T> node){
+        //removed null case
+
         Node<T> newRoot = node.left();
-        node.left().setParent(node.parent());
+
+       if(newRoot == null){
+           return node;
+       }
+
+        newRoot.setParent(node.parent());
 
         if (newRoot.right() != null) {
             newRoot.right().setParent(node);
         }
         node.setParent(newRoot);
+
 
         return newRoot;
     }
@@ -36,8 +44,12 @@ public class Rotation {
 
     public static <T extends Comparable<T>> void pullBlack(Node<T> node){
         node.setColor(node.color().nextColor());
-        node.left().setColor(node.leftColor().prevColor());
-        node.right().setColor(node.rightColor().prevColor());
+        if (node.left() != null) {
+            node.left().setColor(node.leftColor().prevColor());
+        }
+        if (node.right() != null) {
+            node.right().setColor(node.rightColor().prevColor());
+        }
     }
 
     public static <T extends Comparable<T>> Node<T> flipLeft(Node<T> node){
@@ -52,8 +64,10 @@ public class Rotation {
 
     private static <T extends Comparable<T>> void swapColors(Node<T> first, Node<T> second) {
         Color tempColor = first.color();
-        first.setColor(second.color());
-        second.setColor(tempColor);
+        first.setColor(Node.getColor(second));
+        if (second != null) {
+            second.setColor(tempColor);
+        }
     }
 
 }
