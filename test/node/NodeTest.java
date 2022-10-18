@@ -30,7 +30,7 @@ class NodeTest {
 
     @Test
     void constructor_WithValueAndNullParent_ParentIsNull() {
-        Node<Integer> n = new Node<>(5, (Node<Integer>)null);
+        Node<Integer> n = new Node<>(5, (Node<Integer>) null);
 
         assertNull(n.parent(), "Constructor with null parent should make a node with null parent");
     }
@@ -192,14 +192,13 @@ class NodeTest {
     }
 
 
-
     @Test
     void equals_NodesAreEqual_True() {
         Node<Integer> first = new Node<>(3, Color.Black,
                 new Node<>(2),
                 new Node<>(5, Color.Black,
-                                        new Node<>(4),
-                                        new Node<>(7)));
+                        new Node<>(4),
+                        new Node<>(7)));
 
         Node<Integer> second = new Node<>(3, Color.Black,
                 new Node<>(2),
@@ -208,6 +207,23 @@ class NodeTest {
                         new Node<>(7)));
 
         assertEquals(first, second, "Nodes are equal");
+    }
+
+    @Test
+    void hashCode_ofEqualNodes_isEqual() {
+        Node<Integer> first = new Node<>(3, Color.Black,
+                new Node<>(2),
+                new Node<>(5, Color.Black,
+                        new Node<>(4),
+                        new Node<>(7)));
+
+        Node<Integer> second = new Node<>(3, Color.Black,
+                new Node<>(2),
+                new Node<>(5, Color.Black,
+                        new Node<>(4),
+                        new Node<>(7)));
+
+        assertEquals(first.hashCode(), second.hashCode(), "Equal nodes have equal hashCodes");
     }
 
     @Test

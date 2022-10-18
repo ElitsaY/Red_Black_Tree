@@ -7,9 +7,10 @@ import rotations.Rotation;
 public class Operations {
     /**
      * Returns height of the tree.
+     *
      * @param tree root of the tree
+     * @param <T>  the type of value
      * @return height of the tree
-     * @param <T> the type of value
      */
     public static <T extends Comparable<T>> int height(Node<T> tree) {
         if (tree == null) {
@@ -20,10 +21,11 @@ public class Operations {
 
     /**
      * Checks if value is contained in the tree.
-     * @param tree root of the tree
+     *
+     * @param tree  root of the tree
      * @param value value to search in the tree
+     * @param <T>   type of value
      * @return true if value is in the tree, false otherwise
-     * @param <T> type of value
      */
     public static <T extends Comparable<T>> boolean contains(Node<T> tree, T value) {
         Node<T> result = getNode(tree, value);
@@ -32,10 +34,11 @@ public class Operations {
 
     /**
      * Performs a binary tree insertion.
-     * @param tree root of the tree to insert in
+     *
+     * @param tree  root of the tree to insert in
      * @param value value to add
+     * @param <T>   type of the value
      * @return the new node
-     * @param <T> type of the value
      */
     public static <T extends Comparable<T>> Node<T> binaryTreeAdd(Node<T> tree, T value) {
         Node<T> parentNode = getNode(tree, value);
@@ -49,14 +52,14 @@ public class Operations {
 
     /**
      * Searches for a node with the given value.
-     * @param tree root of the tree
+     *
+     * @param tree  root of the tree
      * @param value value of the new node
+     * @param <T>   the type of value
      * @return If node with such value exists, returns it.
      * Else returns the eventual parent of a node with the given value.
-     * @param <T> the type of value
      */
-    public static <T extends Comparable<T>> Node<T> getNode(Node<T> tree, T value)
-    {
+    public static <T extends Comparable<T>> Node<T> getNode(Node<T> tree, T value) {
         int compareRes;
         Node<T> prev = null;
 
@@ -76,10 +79,11 @@ public class Operations {
     /**
      * Adds the value to the tree if it isn't in it.
      * If the tree is empty, returns the node with the value.
-     * @param tree root of the tree
+     *
+     * @param tree  root of the tree
      * @param value value to add
+     * @param <T>   type of the value
      * @return the new root of tree
-     * @param <T> type of the value
      */
     public static <T extends Comparable<T>> Node<T> add(Node<T> tree, T value) {
         if (tree == null) {
@@ -87,7 +91,7 @@ public class Operations {
         }
 
         Node<T> newNode = binaryTreeAdd(tree, value);
-        if(newNode == null) {   //duplicate element
+        if (newNode == null) {   //duplicate element
             return tree;
         }
 
@@ -97,35 +101,35 @@ public class Operations {
 
     /**
      * Balances the tree and ensures left-leaning property.
+     *
      * @param node the added node
+     * @param <T>  type of value
      * @return the root of the tree
-     * @param <T> type of value
      */
     public static <T extends Comparable<T>> Node<T> addFixUp(Node<T> node) {
         Node<T> parentNode = null;
         Node<T> grandParent = null;
 
-        while(node.color() == Color.Red){
+        while (node.color() == Color.Red) {
             if (node.isRoot()) {
                 node.setColor(Color.Black);
                 return node;
             }
 
             parentNode = node.parent();
-            if(Node.getColor(parentNode.left()) == Color.Black) {
+            if (Node.getColor(parentNode.left()) == Color.Black) {
                 //ensure left leaning property
                 node = Rotation.flipLeft(parentNode);
                 parentNode = node.parent();
             }
-            if(Node.getColor(parentNode) == Color.Black){
+            if (Node.getColor(parentNode) == Color.Black) {
                 break; // no red-red edge
             }
             grandParent = parentNode.parent();
-            if(Node.getColor(grandParent.right()) == Color.Black) {
+            if (Node.getColor(grandParent.right()) == Color.Black) {
                 grandParent = Rotation.flipRight(grandParent);
                 break;
-            }
-            else {
+            } else {
                 Rotation.pushBlack(grandParent);
                 //move upwards
                 node = grandParent;
@@ -135,36 +139,34 @@ public class Operations {
         return node.getRoot();
     }
 
-    private static <T extends Comparable<T>> Node<T> getSmallestNodeInSubtree(Node<T> node){
-        while(node.left() != null) {
+    private static <T extends Comparable<T>> Node<T> getSmallestNodeInSubtree(Node<T> node) {
+        while (node.left() != null) {
             node = node.left();
         }
         return node;
     }
 
-    private static <T extends Comparable<T>> Node<T> fixUpDoubleBlack(Node<T> node){
+    private static <T extends Comparable<T>> Node<T> fixUpDoubleBlack(Node<T> node) {
         while (node.color() == Color.DoubleBlack) {
             if (node.isRoot()) {
                 node.setColor(Color.Black);
-            }
-            else if (Node.getColor(node.parent().left()) == Color.Red) {
+            } else if (Node.getColor(node.parent().left()) == Color.Red) {
                 node = removeFixUpCase1(node);
-            }
-            else if (node.equals(node.parent().left())) {
+            } else if (node.equals(node.parent().left())) {
                 node = removeFixUpCase2(node);
-            }
-            else {
+            } else {
                 node = removeFixUpCase3(node);
             }
         }
         return node;
     }
-    private static <T extends Comparable<T>> Node<T> removeFixUp(Node<T> node){
+
+    private static <T extends Comparable<T>> Node<T> removeFixUp(Node<T> node) {
         node = fixUpDoubleBlack(node);
 
         if (!node.isRoot()) { // restore left-leaning property, if needed
             if (Node.getColor(node.parent().right()) == Color.Red &&
-                Node.getColor(node.parent().left()) == Color.Black) {
+                    Node.getColor(node.parent().left()) == Color.Black) {
                 Rotation.flipLeft(node.parent());
             }
         }
@@ -204,24 +206,23 @@ public class Operations {
         Node<T> leftChild = parent.left(); //v
 
         Rotation.pullBlack(parent);
-        if(leftChild == null) {
+        if (leftChild == null) {
             return parent;
         }
         leftChild = Rotation.flipRight(parent); //q
         Node<T> newLeftChild = parent.left();
 
-        if(Node.getColor(newLeftChild) == Color.Red) {
+        if (Node.getColor(newLeftChild) == Color.Red) {
             parent = Rotation.rotateRight(parent);
             leftChild = Rotation.flipLeft(leftChild);
             Rotation.pushBlack(newLeftChild);
             return newLeftChild;
         }
 
-        if(Node.getColor(leftChild.left()) == Color.Red){
+        if (Node.getColor(leftChild.left()) == Color.Red) {
             Rotation.pushBlack(leftChild); // both leftChild's children are red
             return leftChild;
-        }
-        else{
+        } else {
             parent = Rotation.flipLeft(leftChild);
             return parent;
         }
@@ -229,10 +230,11 @@ public class Operations {
 
     /**
      * Removes the value from the tree.
-     * @param tree root of the tree
+     *
+     * @param tree  root of the tree
      * @param value value to remove
+     * @param <T>   type of value
      * @return the new root of the tree
-     * @param <T> type of value
      */
     public static <T extends Comparable<T>> Node<T> remove(Node<T> tree, T value) {
         Node<T> node = getNode(tree, value);
@@ -251,9 +253,10 @@ public class Operations {
     /**
      * Removes the node from the tree.
      * Balances the tree and ensures left-leaning property.
+     *
      * @param node node to remove
+     * @param <T>  type of value
      * @return new root of the tree
-     * @param <T> type of value
      */
     public static <T extends Comparable<T>> Node<T> removeNode(Node<T> node) {
         Node<T> toRemove = node;
@@ -261,8 +264,7 @@ public class Operations {
 
         if (node.right() == null) {
             fixUpStartNode = node.left();
-        }
-        else {
+        } else {
             toRemove = getSmallestNodeInSubtree(node.right());
             node.setValue(toRemove.value());
             fixUpStartNode = toRemove.right();

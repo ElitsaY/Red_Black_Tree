@@ -39,13 +39,13 @@ class RotationTest {
     void rotateLeft_RotatesMoreComplexTree_ItIsLeftRotated() {
         Node<Integer> expected = new Node<>(10, Color.Black,
                 new Node<>(7, Color.Black,
-                        new Node<>(5, Color.Black) ,
+                        new Node<>(5, Color.Black),
                         new Node<>(8, Color.Black)),
                 new Node<>(12, Color.Black));
 
         Node<Integer> actual = new Node<>(7, Color.Black,
                 new Node<>(5, Color.Black),
-                new Node<>(10, Color. Black,
+                new Node<>(10, Color.Black,
                         new Node<>(8, Color.Black),
                         new Node<>(12, Color.Black)));
 
@@ -125,13 +125,13 @@ class RotationTest {
     void rotateRight_RotatesMoreComplexTree_ItIsRightRotated() {
         Node<Integer> expected = new Node<>(7, Color.Black,
                 new Node<>(5, Color.Black),
-                new Node<>(10, Color. Black,
+                new Node<>(10, Color.Black,
                         new Node<>(8, Color.Black),
                         new Node<>(12, Color.Black)));
 
         Node<Integer> actual = new Node<>(10, Color.Black,
                 new Node<>(7, Color.Black,
-                        new Node<>(5, Color.Black) ,
+                        new Node<>(5, Color.Black),
                         new Node<>(8, Color.Black)),
                 new Node<>(12, Color.Black));
 
@@ -197,7 +197,7 @@ class RotationTest {
                 new Node<>(3, Color.Red));
 
         Rotation.pushBlack(actual);
-        assertEquals(expected,actual, "The colors are switched" );
+        assertEquals(expected, actual, "The colors are switched");
     }
 
     /*
@@ -221,7 +221,7 @@ class RotationTest {
                 new Node<>(3, Color.Black));
 
         Rotation.pullBlack(actual);
-        assertEquals(expected,actual, "The colors are switched" );
+        assertEquals(expected, actual, "The colors are switched");
     }
 
     /*
@@ -238,7 +238,7 @@ class RotationTest {
     void flipLeft_flipAtRoot_treeIsFlipped() {
         Node<Integer> expected = new Node<>(10, Color.Black,
                 new Node<>(7, Color.Red,
-                        new Node<>(5, Color.Black) ,
+                        new Node<>(5, Color.Black),
                         new Node<>(8, Color.Black)),
                 new Node<>(12, Color.Black));
 
@@ -316,7 +316,7 @@ class RotationTest {
 
         Node<Integer> actual = new Node<>(10, Color.Black,
                 new Node<>(7, Color.Red,
-                        new Node<>(5, Color.Black) ,
+                        new Node<>(5, Color.Black),
                         new Node<>(8, Color.Black)),
                 new Node<>(12, Color.Black));
 

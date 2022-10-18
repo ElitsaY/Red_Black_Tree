@@ -8,6 +8,7 @@ public enum Color {
     DoubleBlack(2);
 
     private int value;
+
     Color(int value) {
         this.value = value;
     }

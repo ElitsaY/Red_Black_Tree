@@ -1,5 +1,6 @@
 package tree;
 
+import node.Color;
 import node.Node;
 import tree.operations.Operations;
 
@@ -9,6 +10,7 @@ public class RedBlackTree<T extends Comparable<T>> {
 
     /**
      * Complexity : O(logN)
+     *
      * @param value the value to check whether is contained
      * @return true if the passed value is contained in the tree and false otherwise
      */
@@ -19,16 +21,29 @@ public class RedBlackTree<T extends Comparable<T>> {
     /**
      * Complexity : O(logN)
      * Inserts the value in the tree. If it is already contained doesn't do anything.
+     *
      * @param value the value to be inserted
      */
     public void insert(T value) {
-        root = Operations.add(root, value);
-        size++;
+        if (root == null) {
+            root = new Node<T>(value, Color.Black);
+            ++size;
+            return;
+        }
+
+        Node<T> newNode = Operations.binaryTreeAdd(root, value);
+        if (newNode == null) {   //duplicate element
+            return;
+        }
+
+        root = Operations.addFixUp(newNode);
+        ++size;
     }
 
     /**
      * Complexity : O(logN)
      * Removes the value from the tree and decreases its size
+     *
      * @param value
      */
     public void erase(T value) {
@@ -71,6 +86,7 @@ public class RedBlackTree<T extends Comparable<T>> {
 
     /**
      * Complexity : O(logN)
+     *
      * @return the height of the tree
      */
     public int height() {

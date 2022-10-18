@@ -31,7 +31,7 @@ class OperationsTest {
     void height_ofTreeWithLongestPathOfThree_isThree() {
         Node<Integer> tree = new Node<>(10, Color.Black,
                 new Node<>(7, Color.Black,
-                        new Node<>(5, Color.Black) ,
+                        new Node<>(5, Color.Black),
                         new Node<>(8, Color.Red)),
                 new Node<>(12, Color.Red));
         assertEquals(3, Operations.height(tree),
@@ -40,8 +40,7 @@ class OperationsTest {
 
     //add contains tests with complex type
     @Test
-    void contains_nullTree_DoesNotContainSeven()
-    {
+    void contains_nullTree_DoesNotContainSeven() {
         assertFalse(Operations.contains(null, 7), "Null tree doesn't contain seven");
     }
 
@@ -65,7 +64,7 @@ class OperationsTest {
     void contains_treeWithLeafTwelve_containsTwelve() {
         Node<Integer> tree = new Node<>(7, Color.Black,
                 new Node<>(5, Color.Black),
-                new Node<>(10, Color. Black,
+                new Node<>(10, Color.Black,
                         new Node<>(8, Color.Red),
                         new Node<>(12, Color.Red)));
         assertTrue(Operations.contains(tree, 12), "Tree with leaf 12 should contain 12");
@@ -121,9 +120,8 @@ class OperationsTest {
                 null);
 
         actual = Operations.add(actual, 1);
-        assertEquals(expected, actual, "Actual is left rotated and has 2 red descendants" );
+        assertEquals(expected, actual, "Actual is left rotated and has 2 red descendants");
     }
-
 
 
     /*
@@ -133,18 +131,18 @@ class OperationsTest {
                                        /
                                      [1]
      */
-   @Test
-   void add_addToTheRight_LeftLeaningPropertyMaintained() {
+    @Test
+    void add_addToTheRight_LeftLeaningPropertyMaintained() {
         Node<Integer> actual = new Node<>(1, Color.Black);
 
         Node<Integer> expected = new Node<>(2, Color.Black,
-            new Node<>(1, Color.Red), null);
+                new Node<>(1, Color.Red), null);
 
         actual = Operations.add(actual, 2);
 
         assertEquals(expected, actual,
                 "The tree is rotated and recolored according to the left leaning property");
-   }
+    }
 
     /*
         [] = red node
@@ -157,35 +155,35 @@ class OperationsTest {
               [5]   [8]
     */
     @Test
-    void add_addDuplicateValue_TheValueIsNotAdded(){
-       Node<Integer> actual = new Node<>(10, Color.Black,
-               new Node<>(7, Color.Black,
-                       new Node<>(5, Color.Red) ,
-                       new Node<>(8, Color.Red)),
-               new Node<>(12, Color.Black));
+    void add_addDuplicateValue_TheValueIsNotAdded() {
+        Node<Integer> actual = new Node<>(10, Color.Black,
+                new Node<>(7, Color.Black,
+                        new Node<>(5, Color.Red),
+                        new Node<>(8, Color.Red)),
+                new Node<>(12, Color.Black));
 
-       Node<Integer> expected = new Node<>(10, Color.Black,
-               new Node<>(7, Color.Black,
-                       new Node<>(5, Color.Red) ,
-                       new Node<>(8, Color.Red)),
-               new Node<>(12, Color.Black));
+        Node<Integer> expected = new Node<>(10, Color.Black,
+                new Node<>(7, Color.Black,
+                        new Node<>(5, Color.Red),
+                        new Node<>(8, Color.Red)),
+                new Node<>(12, Color.Black));
 
-       actual = Operations.add(actual, 10);
-       
-       assertEquals(expected, actual, "Duplicate elements do not change the tree.");
+        actual = Operations.add(actual, 10);
 
-   }
+        assertEquals(expected, actual, "Duplicate elements do not change the tree.");
 
-       /*
-         [] = red
-          _ = black
+    }
 
-             2                                    2
-            /  \     -> AFTER ADDING 3 ->       /   \
-          [1]  [4]                             1     4
-                                                    /
-                                                  [3]
-     */
+    /*
+      [] = red
+       _ = black
+
+          2                                    2
+         /  \     -> AFTER ADDING 3 ->       /   \
+       [1]  [4]                             1     4
+                                                 /
+                                               [3]
+  */
     @Test
     void add_addingToTheRightWithRedParent_PushBlackAndChangeColorOfRoot() {
         Node<Integer> expected = new Node<>(2, Color.Black,
@@ -216,11 +214,11 @@ class OperationsTest {
     @Test
     void add_AddingToTheLeftWithRedParent_PushBlackAndChangeColorOfRoot() {
         Node<Integer> actual = new Node<>(5, Color.Black,
-                new Node<> (3, Color.Red),
+                new Node<>(3, Color.Red),
                 new Node<>(6, Color.Red));
 
         Node<Integer> expected = new Node<>(5, Color.Black,
-                new Node<> (3, Color.Black,
+                new Node<>(3, Color.Black,
                         new Node<>(1, Color.Red),
                         null),
                 new Node<>(6, Color.Black));
@@ -283,11 +281,11 @@ class OperationsTest {
     @Test
     void remove_redLeaf_leavesTheTreeBalanced() {
         Node<Integer> expected = new Node<>(5, Color.Black,
-                new Node<> (3, Color.Black),
+                new Node<>(3, Color.Black),
                 new Node<>(6, Color.Black));
 
         Node<Integer> actual = new Node<>(5, Color.Black,
-                new Node<> (3, Color.Black,
+                new Node<>(3, Color.Black,
                         new Node<>(1, Color.Red),
                         null),
                 new Node<>(6, Color.Black));
@@ -317,7 +315,6 @@ class OperationsTest {
         actual = Operations.remove(actual, 2);
         assertEquals(expected, actual, "Removing root should leave the tree balanced");
     }
-
 
 
     /*
@@ -429,8 +426,8 @@ class OperationsTest {
         Node<Integer> actual = new Node<>(5, Color.Black,
                 new Node<>(4, Color.Black),
                 new Node<>(6, Color.Red,
-                    null,
-                    new Node<>(7, Color.Black)));
+                        null,
+                        new Node<>(7, Color.Black)));
 
         actual = Operations.remove(actual, 6);
 
@@ -459,7 +456,7 @@ class OperationsTest {
 
         Node<Integer> actual = new Node<>(7, Color.Black,
                 new Node<>(5, Color.Black),
-                new Node<>(10, Color. Black,
+                new Node<>(10, Color.Black,
                         new Node<>(8, Color.Red),
                         new Node<>(12, Color.Red)));
 
@@ -663,7 +660,7 @@ class OperationsTest {
      */
 
     @Test
-    void remove_removeNodeWithLeftChild_theTreeIsBalanceAfterSplice(){
+    void remove_removeNodeWithLeftChild_theTreeIsBalanceAfterSplice() {
         Node<Integer> actual = new Node<>(6, Color.Black,
                 new Node<>(4, Color.Black,
                         new Node<>(2, Color.Red,
@@ -684,7 +681,7 @@ class OperationsTest {
                                 new Node<>(1, Color.Black),
                                 new Node<>(3, Color.Black)),
                         new Node<>(5, Color.Black)),
-                new Node<>(10,Color.Black,
+                new Node<>(10, Color.Black,
                         new Node<>(8, Color.Red,
                                 new Node<>(7, Color.Black),
                                 new Node<>(9, Color.Black)),
@@ -693,7 +690,6 @@ class OperationsTest {
         actual = Operations.remove(actual, 12);
         assertEquals(expected, actual, "The tree is balanced");
     }
-
 
 
     /*
@@ -707,7 +703,7 @@ class OperationsTest {
     */
     @Test
     void remove_fixUpCase3RedRed_treeIsBalanced() {
-        Node<Integer> expected = new Node<>(8,Color.Black,
+        Node<Integer> expected = new Node<>(8, Color.Black,
                 new Node<>(5, Color.Black,
                         new Node<>(3, Color.Red,
                                 new Node<>(1),
@@ -725,7 +721,7 @@ class OperationsTest {
                         new Node<>(8, Color.Red,
                                 new Node<>(6, Color.Black),
                                 null)),
-                new Node<>(11,Color.Black,
+                new Node<>(11, Color.Black,
                         null,
                         new Node<>(12, Color.Black)));
 
@@ -746,8 +742,7 @@ class OperationsTest {
                  [10]  [12]                                         [11]
      */
     @Test
-    void remove_rootFixUpCase2RedParentAndChild_removalIsSuccessful()
-    {
+    void remove_rootFixUpCase2RedParentAndChild_removalIsSuccessful() {
         Node<Integer> expected = new Node<>(7, Color.Black,
                 new Node<>(4, Color.Black,
                         new Node<>(2, Color.Red,
@@ -774,8 +769,8 @@ class OperationsTest {
                         new Node<>(9, Color.Red,
                                 new Node<>(7, Color.Black),
                                 new Node<>(11, Color.Black,
-                                    new Node<>(10, Color.Red),
-                                    new Node<>(12, Color.Red))),
+                                        new Node<>(10, Color.Red),
+                                        new Node<>(12, Color.Red))),
                         new Node<>(14, Color.Black,
                                 new Node<>(13, Color.Red),
                                 null)));
@@ -785,18 +780,18 @@ class OperationsTest {
         assertEquals(expected, actual);
     }
 
-/*
+    /*
 
-               6                                              6
-           /       \                                        /    \
-         [4]        10                                   [3]      10
-        /   \     /   \    -> AFTER REMOVING 12 ->      / \     /  \
-       2    5   [8]    [12]                            2   4  [8]  [12]
-      / \                                              /
-    [1] [3]                                           [1]
+                   6                                              6
+               /       \                                        /    \
+             [4]        10                                   [3]      10
+            /   \     /   \    -> AFTER REMOVING 12 ->      / \     /  \
+           2    5   [8]    [12]                            2   4  [8]  [12]
+          / \                                              /
+        [1] [3]                                           [1]
 
 
-*/
+    */
     @Test
     void remove_blackRightChild_fixUpCase3SiblingWithRedChild() {
         Node<Integer> expected = new Node<>(6, Color.Black,
