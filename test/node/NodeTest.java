@@ -38,7 +38,7 @@ class NodeTest {
     @Test
     void constructor_ValueIsLessThanParentValue_NodeAddedAsLeftChild() {
         Node<Integer> parent = new Node<>(4);
-        Node<Integer> n = new Node<Integer>(3, parent);
+        Node<Integer> n = new Node<>(3, parent);
 
         assertEquals(n, parent.left(), "node should be left child of parent");
         assertNull(parent.right(), "right child should be null");
@@ -48,7 +48,7 @@ class NodeTest {
     @Test
     void constructor_ValueIsGreaterThanParentValue_NodeAddedAsRightChild() {
         Node<Integer> parent = new Node<>(4);
-        Node<Integer> n = new Node<Integer>(5, parent);
+        Node<Integer> n = new Node<>(5, parent);
 
         assertEquals(n, parent.right(), "node should be right child of parent");
         assertNull(parent.left(), "left child should be null");
@@ -63,10 +63,10 @@ class NodeTest {
     */
     @Test
     void constructor_CustomTree_CreatesNodeDoesNotChangeTheObject() {
-        Node<Integer> node = new Node<Integer>(9, Color.Black,
-                new Node<Integer>(6, Color.Black, null, null),
-                new Node<Integer>(12, Color.Black,
-                        new Node<Integer>(11, Color.Black, null, null),
+        Node<Integer> node = new Node<>(9, Color.Black,
+                new Node<>(6, Color.Black, null, null),
+                new Node<>(12, Color.Black,
+                        new Node<>(11, Color.Black, null, null),
                         null));
         assertEquals(9, node.value(),
                 "The root has a value of 9");
@@ -88,7 +88,7 @@ class NodeTest {
 
     @Test
     void leftColor_LeftIsRed_Red() {
-        Node<Integer> n = new Node<Integer>(3, null, new Node<Integer>(2, Color.Red), null);
+        Node<Integer> n = new Node<>(3, null, new Node<>(2, Color.Red), null);
 
         assertEquals(Color.Red, n.leftColor(), "color of left child is red");
     }
@@ -102,7 +102,7 @@ class NodeTest {
 
     @Test
     void rightColor_RightIsRed_Red() {
-        Node<Integer> n = new Node<Integer>(3, null, null, new Node<Integer>(4, Color.Red));
+        Node<Integer> n = new Node<>(3, null, null, new Node<>(4, Color.Red));
 
         assertEquals(Color.Red, n.rightColor(), "color of right child is red");
     }
@@ -139,7 +139,7 @@ class NodeTest {
     void setParent_NodeIsRightChild_NodeNotAChildOfOldParent() {
         Node<Integer> oldParent = new Node<>(5);
         Node<Integer> parent = new Node<>(4);
-        Node<Integer> node = new Node<Integer>(8, oldParent);
+        Node<Integer> node = new Node<>(8, oldParent);
 
         node.setParent(parent);
 
@@ -150,7 +150,7 @@ class NodeTest {
     void setParent_NodeIsLeftChild_NodeNotAChildOfOldParent() {
         Node<Integer> oldParent = new Node<>(5);
         Node<Integer> parent = new Node<>(4);
-        Node<Integer> node = new Node<Integer>(3, oldParent);
+        Node<Integer> node = new Node<>(3, oldParent);
 
         node.setParent(parent);
 
@@ -171,15 +171,15 @@ class NodeTest {
 
     @Test
     void equals_NodesAreEqual_True() {
-        Node<Integer> first = new Node<Integer>(3, Color.Black,
+        Node<Integer> first = new Node<>(3, Color.Black,
                 new Node<>(2),
-                new Node<Integer>(5, Color.Black,
+                new Node<>(5, Color.Black,
                                         new Node<>(4),
                                         new Node<>(7)));
 
-        Node<Integer> second = new Node<Integer>(3, Color.Black,
+        Node<Integer> second = new Node<>(3, Color.Black,
                 new Node<>(2),
-                new Node<Integer>(5, Color.Black,
+                new Node<>(5, Color.Black,
                         new Node<>(4),
                         new Node<>(7)));
 
@@ -188,19 +188,19 @@ class NodeTest {
 
     @Test
     void equals_NodesAreDifferent_False() {
-        Node<Integer> first = new Node<Integer>(3, Color.Black,
+        Node<Integer> first = new Node<>(3, Color.Black,
                 new Node<>(2),
-                new Node<Integer>(5, Color.Black,
+                new Node<>(5, Color.Black,
                         new Node<>(4),
                         new Node<>(7)));
 
-        Node<Integer> second = new Node<Integer>(3, Color.Black,
-                new Node<Integer>(1, Color.Black,
+        Node<Integer> second = new Node<>(3, Color.Black,
+                new Node<>(1, Color.Black,
                         new Node<>(-1),
                         new Node<>(2)),
-                new Node<Integer>(5, Color.Black,
+                new Node<>(5, Color.Black,
                         new Node<>(4),
-                        new Node<Integer>(7, Color.Black,
+                        new Node<>(7, Color.Black,
                                 new Node<>(6),
                                 new Node<>(10))));
 

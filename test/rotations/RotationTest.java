@@ -17,13 +17,13 @@ class RotationTest {
      */
     @Test
     void rotateLeft_RotatesVine_ItIsLeftRotated() {
-        Node<Integer> expected = new Node<Integer>(2, Color.Black,
-                new Node<Integer>(1, Color.Black),
-                new Node<Integer>(3, Color.Black));
+        Node<Integer> expected = new Node<>(2, Color.Black,
+                new Node<>(1, Color.Black),
+                new Node<>(3, Color.Black));
 
-        Node<Integer> actual = new Node<Integer>(1, Color.Black, null,
-                new Node<Integer>(2, Color.Black, null,
-                        new Node<Integer>(3, Color.Black)));
+        Node<Integer> actual = new Node<>(1, Color.Black, null,
+                new Node<>(2, Color.Black, null,
+                        new Node<>(3, Color.Black)));
         actual = Rotation.rotateLeft(actual);
         assertEquals(expected, actual, "The tree should be left rotated");
     }
@@ -37,17 +37,17 @@ class RotationTest {
      */
     @Test
     void rotateLeft_RotatesMoreComplexTree_ItIsLeftRotated() {
-        Node<Integer> expected = new Node<Integer>(10, Color.Black,
-                new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(5, Color.Black) ,
-                        new Node<Integer>(8, Color.Black)),
-                new Node<Integer>(12, Color.Black));
+        Node<Integer> expected = new Node<>(10, Color.Black,
+                new Node<>(7, Color.Black,
+                        new Node<>(5, Color.Black) ,
+                        new Node<>(8, Color.Black)),
+                new Node<>(12, Color.Black));
 
-        Node<Integer> actual = new Node<Integer>(7, Color.Black,
-                new Node<Integer>(5, Color.Black),
-                new Node<Integer>(10, Color. Black,
-                        new Node<Integer>(8, Color.Black),
-                        new Node<Integer>(12, Color.Black)));
+        Node<Integer> actual = new Node<>(7, Color.Black,
+                new Node<>(5, Color.Black),
+                new Node<>(10, Color. Black,
+                        new Node<>(8, Color.Black),
+                        new Node<>(12, Color.Black)));
 
         actual = Rotation.rotateLeft(actual);
         assertEquals(expected, actual, "The tree should be left rotated");
@@ -64,29 +64,29 @@ class RotationTest {
      */
     @Test
     void rotateLeft_rotateSubtree_changesOnlyTheSubtree() {
-        Node<Integer> expected = new Node<Integer>(5, Color.Black,
-                new Node<Integer>(3, Color.Black,
-                        new Node<Integer>(1, Color.Black,
-                                new Node<Integer>(0),
-                                new Node<Integer>(2)),
-                        new Node<Integer>(4)),
-                new Node<Integer>(9, Color.Black,
-                        new Node<Integer>(7, Color.Black,
-                                new Node<Integer>(6),
-                                new Node<Integer>(8)),
-                        new Node<Integer>(10)));
+        Node<Integer> expected = new Node<>(5, Color.Black,
+                new Node<>(3, Color.Black,
+                        new Node<>(1, Color.Black,
+                                new Node<>(0),
+                                new Node<>(2)),
+                        new Node<>(4)),
+                new Node<>(9, Color.Black,
+                        new Node<>(7, Color.Black,
+                                new Node<>(6),
+                                new Node<>(8)),
+                        new Node<>(10)));
 
-        Node<Integer> actual = new Node<Integer>(5, Color.Black,
-                new Node<Integer>(3, Color.Black,
-                        new Node<Integer>(1, Color.Black,
-                                new Node<Integer>(0),
-                                new Node<Integer>(2)),
-                        new Node<Integer>(4)),
-                new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(6),
-                        new Node<Integer>(9, Color.Black,
-                                new Node<Integer>(8),
-                                new Node<Integer>(10))));
+        Node<Integer> actual = new Node<>(5, Color.Black,
+                new Node<>(3, Color.Black,
+                        new Node<>(1, Color.Black,
+                                new Node<>(0),
+                                new Node<>(2)),
+                        new Node<>(4)),
+                new Node<>(7, Color.Black,
+                        new Node<>(6),
+                        new Node<>(9, Color.Black,
+                                new Node<>(8),
+                                new Node<>(10))));
 
         Rotation.rotateLeft(actual.right());
         assertEquals(expected, actual, "Rotate left should change only the subtree");
@@ -101,13 +101,13 @@ class RotationTest {
      */
     @Test
     void rotateRight_RotatesVine_ItIsRightRotated() {
-        Node<Integer> expected = new Node<Integer>(2, Color.Black,
-                new Node<Integer>(1, Color.Black),
-                new Node<Integer>(3, Color.Black));
+        Node<Integer> expected = new Node<>(2, Color.Black,
+                new Node<>(1, Color.Black),
+                new Node<>(3, Color.Black));
 
-        Node<Integer> actual = new Node<Integer>(3, Color.Black,
-                new Node<Integer>(2, Color.Black,
-                        new Node<Integer>(1, Color.Black), null), null);
+        Node<Integer> actual = new Node<>(3, Color.Black,
+                new Node<>(2, Color.Black,
+                        new Node<>(1, Color.Black), null), null);
         actual = Rotation.rotateRight(actual);
         assertEquals(expected, actual, "The tree should be left rotated");
     }
@@ -123,17 +123,17 @@ class RotationTest {
      */
     @Test
     void rotateRight_RotatesMoreComplexTree_ItIsRightRotated() {
-        Node<Integer> expected = new Node<Integer>(7, Color.Black,
-                new Node<Integer>(5, Color.Black),
-                new Node<Integer>(10, Color. Black,
-                        new Node<Integer>(8, Color.Black),
-                        new Node<Integer>(12, Color.Black)));
+        Node<Integer> expected = new Node<>(7, Color.Black,
+                new Node<>(5, Color.Black),
+                new Node<>(10, Color. Black,
+                        new Node<>(8, Color.Black),
+                        new Node<>(12, Color.Black)));
 
-        Node<Integer> actual = new Node<Integer>(10, Color.Black,
-                new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(5, Color.Black) ,
-                        new Node<Integer>(8, Color.Black)),
-                new Node<Integer>(12, Color.Black));
+        Node<Integer> actual = new Node<>(10, Color.Black,
+                new Node<>(7, Color.Black,
+                        new Node<>(5, Color.Black) ,
+                        new Node<>(8, Color.Black)),
+                new Node<>(12, Color.Black));
 
         actual = Rotation.rotateRight(actual);
         assertEquals(expected, actual, "The tree should be left rotated");
@@ -150,29 +150,29 @@ class RotationTest {
      */
     @Test
     void rotateRight_rotateSubtree_changesOnlyTheSubtree() {
-        Node<Integer> expected = new Node<Integer>(5, Color.Black,
-                new Node<Integer>(3, Color.Black,
-                        new Node<Integer>(1, Color.Black,
-                                new Node<Integer>(0),
-                                new Node<Integer>(2)),
-                        new Node<Integer>(4)),
-                new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(6),
-                        new Node<Integer>(9, Color.Black,
-                                new Node<Integer>(8),
-                                new Node<Integer>(10))));
+        Node<Integer> expected = new Node<>(5, Color.Black,
+                new Node<>(3, Color.Black,
+                        new Node<>(1, Color.Black,
+                                new Node<>(0),
+                                new Node<>(2)),
+                        new Node<>(4)),
+                new Node<>(7, Color.Black,
+                        new Node<>(6),
+                        new Node<>(9, Color.Black,
+                                new Node<>(8),
+                                new Node<>(10))));
 
-        Node<Integer> actual = new Node<Integer>(5, Color.Black,
-                new Node<Integer>(3, Color.Black,
-                        new Node<Integer>(1, Color.Black,
-                                new Node<Integer>(0),
-                                new Node<Integer>(2)),
-                        new Node<Integer>(4)),
-                new Node<Integer>(9, Color.Black,
-                        new Node<Integer>(7, Color.Black,
-                                new Node<Integer>(6),
-                                new Node<Integer>(8)),
-                        new Node<Integer>(10)));
+        Node<Integer> actual = new Node<>(5, Color.Black,
+                new Node<>(3, Color.Black,
+                        new Node<>(1, Color.Black,
+                                new Node<>(0),
+                                new Node<>(2)),
+                        new Node<>(4)),
+                new Node<>(9, Color.Black,
+                        new Node<>(7, Color.Black,
+                                new Node<>(6),
+                                new Node<>(8)),
+                        new Node<>(10)));
 
         Rotation.rotateRight(actual.right());
         assertEquals(expected, actual, "Rotate right should change only the subtree");
@@ -188,13 +188,13 @@ class RotationTest {
      */
     @Test
     void pushBlack_MakesTheColorOfTheNodeBlack_ChangedToBlack() {
-        Node<Integer> expected = new Node<Integer>(2, Color.Red,
-                new Node<Integer>(1, Color.Black),
-                new Node<Integer>(3, Color.Black));
+        Node<Integer> expected = new Node<>(2, Color.Red,
+                new Node<>(1, Color.Black),
+                new Node<>(3, Color.Black));
 
-        Node<Integer> actual = new Node<Integer>(2, Color.Black,
-                new Node<Integer>(1, Color.Red),
-                new Node<Integer>(3, Color.Red));
+        Node<Integer> actual = new Node<>(2, Color.Black,
+                new Node<>(1, Color.Red),
+                new Node<>(3, Color.Red));
 
         Rotation.pushBlack(actual);
         assertEquals(expected,actual, "The colors are switched" );
@@ -206,19 +206,19 @@ class RotationTest {
         the opposite of push black
 
             b                               r
-           / \     -> PUSHES BLACK ->      / \
+           / \      -> PULL BLACK ->       / \
           r   r                           b   b
 
      */
     @Test
     void pullBlack_MakesTheColorOfTheNodeRed_ChangedToRed() {
-        Node<Integer> expected = new Node<Integer>(2, Color.Black,
-                new Node<Integer>(1, Color.Red),
-                new Node<Integer>(3, Color.Red));
+        Node<Integer> expected = new Node<>(2, Color.Black,
+                new Node<>(1, Color.Red),
+                new Node<>(3, Color.Red));
 
-        Node<Integer> actual = new Node<Integer>(2, Color.Red,
-                new Node<Integer>(1, Color.Black),
-                new Node<Integer>(3, Color.Black));
+        Node<Integer> actual = new Node<>(2, Color.Red,
+                new Node<>(1, Color.Black),
+                new Node<>(3, Color.Black));
 
         Rotation.pullBlack(actual);
         assertEquals(expected,actual, "The colors are switched" );
@@ -236,17 +236,17 @@ class RotationTest {
      */
     @Test
     void flipLeft_flipAtRoot_treeIsFlipped() {
-        Node<Integer> expected = new Node<Integer>(10, Color.Black,
-                new Node<Integer>(7, Color.Red,
-                        new Node<Integer>(5, Color.Black) ,
-                        new Node<Integer>(8, Color.Black)),
-                new Node<Integer>(12, Color.Black));
+        Node<Integer> expected = new Node<>(10, Color.Black,
+                new Node<>(7, Color.Red,
+                        new Node<>(5, Color.Black) ,
+                        new Node<>(8, Color.Black)),
+                new Node<>(12, Color.Black));
 
-        Node<Integer> actual = new Node<Integer>(7, Color.Black,
-                new Node<Integer>(5, Color.Black),
-                new Node<Integer>(10, Color.Red,
-                        new Node<Integer>(8, Color.Black),
-                        new Node<Integer>(12, Color.Black)));
+        Node<Integer> actual = new Node<>(7, Color.Black,
+                new Node<>(5, Color.Black),
+                new Node<>(10, Color.Red,
+                        new Node<>(8, Color.Black),
+                        new Node<>(12, Color.Black)));
 
 
         actual = Rotation.flipLeft(actual);
@@ -266,29 +266,29 @@ class RotationTest {
    */
     @Test
     void flipLeft_flipSubtree_treeIsFlipped() {
-        Node<Integer> expected = new Node<Integer>(5, Color.Black,
-                new Node<Integer>(3, Color.Black,
-                        new Node<Integer>(1, Color.Black,
-                                new Node<Integer>(0),
-                                new Node<Integer>(2)),
-                        new Node<Integer>(4)),
-                new Node<Integer>(9, Color.Black,
-                        new Node<Integer>(7, Color.Red,
-                                new Node<Integer>(6),
-                                new Node<Integer>(8)),
-                        new Node<Integer>(10)));
+        Node<Integer> expected = new Node<>(5, Color.Black,
+                new Node<>(3, Color.Black,
+                        new Node<>(1, Color.Black,
+                                new Node<>(0),
+                                new Node<>(2)),
+                        new Node<>(4)),
+                new Node<>(9, Color.Black,
+                        new Node<>(7, Color.Red,
+                                new Node<>(6),
+                                new Node<>(8)),
+                        new Node<>(10)));
 
-        Node<Integer> actual = new Node<Integer>(5, Color.Black,
-                new Node<Integer>(3, Color.Black,
-                        new Node<Integer>(1, Color.Black,
-                                new Node<Integer>(0),
-                                new Node<Integer>(2)),
-                        new Node<Integer>(4)),
-                new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(6),
-                        new Node<Integer>(9, Color.Red,
-                                new Node<Integer>(8),
-                                new Node<Integer>(10))));
+        Node<Integer> actual = new Node<>(5, Color.Black,
+                new Node<>(3, Color.Black,
+                        new Node<>(1, Color.Black,
+                                new Node<>(0),
+                                new Node<>(2)),
+                        new Node<>(4)),
+                new Node<>(7, Color.Black,
+                        new Node<>(6),
+                        new Node<>(9, Color.Red,
+                                new Node<>(8),
+                                new Node<>(10))));
 
         Rotation.flipLeft(actual.right());
         assertEquals(expected, actual, "Flip left should change only the subtree");
@@ -308,17 +308,17 @@ class RotationTest {
      */
     @Test
     void flipRight_flipAtRoot_treeIsFlipped() {
-        Node<Integer> expected = new Node<Integer>(7, Color.Black,
-                new Node<Integer>(5, Color.Black),
-                new Node<Integer>(10, Color.Red,
-                        new Node<Integer>(8, Color.Black),
-                        new Node<Integer>(12, Color.Black)));
+        Node<Integer> expected = new Node<>(7, Color.Black,
+                new Node<>(5, Color.Black),
+                new Node<>(10, Color.Red,
+                        new Node<>(8, Color.Black),
+                        new Node<>(12, Color.Black)));
 
-        Node<Integer> actual = new Node<Integer>(10, Color.Black,
-                new Node<Integer>(7, Color.Red,
-                        new Node<Integer>(5, Color.Black) ,
-                        new Node<Integer>(8, Color.Black)),
-                new Node<Integer>(12, Color.Black));
+        Node<Integer> actual = new Node<>(10, Color.Black,
+                new Node<>(7, Color.Red,
+                        new Node<>(5, Color.Black) ,
+                        new Node<>(8, Color.Black)),
+                new Node<>(12, Color.Black));
 
         actual = Rotation.flipRight(actual);
         assertEquals(expected, actual, "The tree should be left rotated");
@@ -337,29 +337,29 @@ class RotationTest {
   */
     @Test
     void flipRight_flipSubtree_treeIsFlipped() {
-        Node<Integer> expected = new Node<Integer>(5, Color.Black,
-                new Node<Integer>(3, Color.Black,
-                        new Node<Integer>(1, Color.Black,
-                                new Node<Integer>(0),
-                                new Node<Integer>(2)),
-                        new Node<Integer>(4)),
-                new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(6),
-                        new Node<Integer>(9, Color.Red,
-                                new Node<Integer>(8),
-                                new Node<Integer>(10))));
+        Node<Integer> expected = new Node<>(5, Color.Black,
+                new Node<>(3, Color.Black,
+                        new Node<>(1, Color.Black,
+                                new Node<>(0),
+                                new Node<>(2)),
+                        new Node<>(4)),
+                new Node<>(7, Color.Black,
+                        new Node<>(6),
+                        new Node<>(9, Color.Red,
+                                new Node<>(8),
+                                new Node<>(10))));
 
-        Node<Integer> actual = new Node<Integer>(5, Color.Black,
-                new Node<Integer>(3, Color.Black,
-                        new Node<Integer>(1, Color.Black,
-                                new Node<Integer>(0),
-                                new Node<Integer>(2)),
-                        new Node<Integer>(4)),
-                new Node<Integer>(9, Color.Black,
-                        new Node<Integer>(7, Color.Red,
-                                new Node<Integer>(6),
-                                new Node<Integer>(8)),
-                        new Node<Integer>(10)));
+        Node<Integer> actual = new Node<>(5, Color.Black,
+                new Node<>(3, Color.Black,
+                        new Node<>(1, Color.Black,
+                                new Node<>(0),
+                                new Node<>(2)),
+                        new Node<>(4)),
+                new Node<>(9, Color.Black,
+                        new Node<>(7, Color.Red,
+                                new Node<>(6),
+                                new Node<>(8)),
+                        new Node<>(10)));
 
         Rotation.flipRight(actual.right());
         assertEquals(expected, actual, "Flip left should change only the subtree");

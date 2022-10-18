@@ -8,9 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RedBlackTreeTest {
     class ComplexType implements Comparable<ComplexType> {
-        int num;
-        boolean isCorgi;
-
+        private int num;
+        private boolean isCorgi;
         public ComplexType(int num, boolean isCorgi) {
             this.num = num;
             this.isCorgi = isCorgi;

@@ -3,7 +3,6 @@ package tree.operations;
 import node.Color;
 import node.Node;
 import org.junit.jupiter.api.Test;
-import tree.operations.Operations;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,10 +30,10 @@ class OperationsTest {
     @Test
     void height_ofTreeWithLongestPathOfThree_isThree() {
         Node<Integer> tree = new Node<>(10, Color.Black,
-                new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(5, Color.Black) ,
-                        new Node<Integer>(8, Color.Red)),
-                new Node<Integer>(12, Color.Red));
+                new Node<>(7, Color.Black,
+                        new Node<>(5, Color.Black) ,
+                        new Node<>(8, Color.Red)),
+                new Node<>(12, Color.Red));
         assertEquals(3, Operations.height(tree),
                 "The height is equal to the longest path(3) from the root to a leaf");
     }
@@ -48,7 +47,7 @@ class OperationsTest {
 
     @Test
     void contains_singleNode_containsNodeValue() {
-        assertTrue(Operations.contains(new Node<Integer>(7), 7),
+        assertTrue(Operations.contains(new Node<>(7), 7),
                 "Single node with value 7 should contain 7");
     }
 
@@ -64,11 +63,11 @@ class OperationsTest {
         */
     @Test
     void contains_treeWithLeafTwelve_containsTwelve() {
-        Node<Integer> tree = new Node<Integer>(7, Color.Black,
-                new Node<Integer>(5, Color.Black),
-                new Node<Integer>(10, Color. Black,
-                        new Node<Integer>(8, Color.Red),
-                        new Node<Integer>(12, Color.Red)));
+        Node<Integer> tree = new Node<>(7, Color.Black,
+                new Node<>(5, Color.Black),
+                new Node<>(10, Color. Black,
+                        new Node<>(8, Color.Red),
+                        new Node<>(12, Color.Red)));
         assertTrue(Operations.contains(tree, 12), "Tree with leaf 12 should contain 12");
     }
 
@@ -85,11 +84,11 @@ class OperationsTest {
         */
     @Test
     void contains_treeWithoutEleven_returnsFalse() {
-        Node<Integer> tree = new Node<Integer>(10, Color.Black,
-                new Node<Integer>(7, Color.Black,
-                        new Node<Integer>(5, Color.Red),
-                        new Node<Integer>(8, Color.Red)),
-                new Node<Integer>(12, Color.Black));
+        Node<Integer> tree = new Node<>(10, Color.Black,
+                new Node<>(7, Color.Black,
+                        new Node<>(5, Color.Red),
+                        new Node<>(8, Color.Red)),
+                new Node<>(12, Color.Black));
         assertFalse(Operations.contains(tree, 11), "Tree without leaf 11 should not contain 11");
     }
 
@@ -97,7 +96,7 @@ class OperationsTest {
     @Test
     void add_addingTheRoot_theRootShouldBeBlack() {
         Node<Integer> actual = null;
-        Node<Integer> expected = new Node<Integer>(3);
+        Node<Integer> expected = new Node<>(3);
         actual = Operations.add(actual, 3);
         assertEquals(expected, actual,
                 "The tree root of actual should have been changed to black");
@@ -113,12 +112,12 @@ class OperationsTest {
      */
     @Test
     void add_addingToTheLeft_theTreeIsBalancedWithTwoRedDescendants() {
-        Node<Integer> expected = new Node<Integer>(2, Color.Black,
-                new Node<Integer>(1, Color.Red),
-                new Node<Integer>(3, Color.Red));
+        Node<Integer> expected = new Node<>(2, Color.Black,
+                new Node<>(1, Color.Red),
+                new Node<>(3, Color.Red));
 
-        Node<Integer> actual = new Node<Integer>(3, Color.Black,
-                new Node<Integer>(2, Color.Red),
+        Node<Integer> actual = new Node<>(3, Color.Black,
+                new Node<>(2, Color.Red),
                 null);
 
         actual = Operations.add(actual, 1);
@@ -136,10 +135,10 @@ class OperationsTest {
      */
    @Test
    void add_addToTheRight_LeftLeaningPropertyMaintained() {
-        Node<Integer> actual = new Node<Integer>(1, Color.Black);
+        Node<Integer> actual = new Node<>(1, Color.Black);
 
-        Node<Integer> expected = new Node<Integer>(2, Color.Black,
-            new Node<Integer>(1, Color.Red), null);
+        Node<Integer> expected = new Node<>(2, Color.Black,
+            new Node<>(1, Color.Red), null);
 
         actual = Operations.add(actual, 2);
 
@@ -159,17 +158,17 @@ class OperationsTest {
     */
     @Test
     void add_addDuplicateValue_TheValueIsNotAdded(){
-       Node<Integer> actual = new Node<Integer>(10, Color.Black,
-               new Node<Integer>(7, Color.Black,
-                       new Node<Integer>(5, Color.Red) ,
-                       new Node<Integer>(8, Color.Red)),
-               new Node<Integer>(12, Color.Black));
+       Node<Integer> actual = new Node<>(10, Color.Black,
+               new Node<>(7, Color.Black,
+                       new Node<>(5, Color.Red) ,
+                       new Node<>(8, Color.Red)),
+               new Node<>(12, Color.Black));
 
-       Node<Integer> expected = new Node<Integer>(10, Color.Black,
-               new Node<Integer>(7, Color.Black,
-                       new Node<Integer>(5, Color.Red) ,
-                       new Node<Integer>(8, Color.Red)),
-               new Node<Integer>(12, Color.Black));
+       Node<Integer> expected = new Node<>(10, Color.Black,
+               new Node<>(7, Color.Black,
+                       new Node<>(5, Color.Red) ,
+                       new Node<>(8, Color.Red)),
+               new Node<>(12, Color.Black));
 
        actual = Operations.add(actual, 10);
        
@@ -194,7 +193,7 @@ class OperationsTest {
                 new Node<>(4, Color.Black,
                         new Node<>(3, Color.Red), null));
 
-        Node<Integer> actual = new Node<Integer>(2, Color.Black,
+        Node<Integer> actual = new Node<>(2, Color.Black,
                 new Node<>(1, Color.Red),
                 new Node<>(4, Color.Red));
 
@@ -216,15 +215,15 @@ class OperationsTest {
      */
     @Test
     void add_AddingToTheLeftWithRedParent_PushBlackAndChangeColorOfRoot() {
-        Node<Integer> actual = new Node<Integer>(5, Color.Black,
-                new Node<Integer> (3, Color.Red),
-                new Node<Integer>(6, Color.Red));
+        Node<Integer> actual = new Node<>(5, Color.Black,
+                new Node<> (3, Color.Red),
+                new Node<>(6, Color.Red));
 
-        Node<Integer> expected = new Node<Integer>(5, Color.Black,
-                new Node<Integer> (3, Color.Black,
-                        new Node<Integer>(1, Color.Red),
+        Node<Integer> expected = new Node<>(5, Color.Black,
+                new Node<> (3, Color.Black,
+                        new Node<>(1, Color.Red),
                         null),
-                new Node<Integer>(6, Color.Black));
+                new Node<>(6, Color.Black));
 
         actual = Operations.add(actual, 1);
 
@@ -249,16 +248,16 @@ class OperationsTest {
 
     @Test
     void add_AddingMultiple_theTreeIsValidRedBlackTree() {
-        Node<Integer> expected = new Node<Integer>(24, Color.Black,
-                new Node<Integer>(16, Color.Red,
-                        new Node<Integer>(8, Color.Black,
-                                new Node<Integer>(4, Color.Red),
-                                new Node<Integer>(12, Color.Red)),
-                        new Node<Integer>(18, Color.Black)),
-                new Node<Integer>(32, Color.Black));
+        Node<Integer> expected = new Node<>(24, Color.Black,
+                new Node<>(16, Color.Red,
+                        new Node<>(8, Color.Black,
+                                new Node<>(4, Color.Red),
+                                new Node<>(12, Color.Red)),
+                        new Node<>(18, Color.Black)),
+                new Node<>(32, Color.Black));
 
         //starting only with the root
-        Node<Integer> actual = new Node<Integer>(32, Color.Black);
+        Node<Integer> actual = new Node<>(32, Color.Black);
         actual = Operations.add(actual, 24);
         actual = Operations.add(actual, 18);
         actual = Operations.add(actual, 16);
@@ -283,15 +282,15 @@ class OperationsTest {
     */
     @Test
     void remove_redLeaf_leavesTheTreeBalanced() {
-        Node<Integer> expected = new Node<Integer>(5, Color.Black,
-                new Node<Integer> (3, Color.Black),
-                new Node<Integer>(6, Color.Black));
+        Node<Integer> expected = new Node<>(5, Color.Black,
+                new Node<> (3, Color.Black),
+                new Node<>(6, Color.Black));
 
-        Node<Integer> actual = new Node<Integer>(5, Color.Black,
-                new Node<Integer> (3, Color.Black,
-                        new Node<Integer>(1, Color.Red),
+        Node<Integer> actual = new Node<>(5, Color.Black,
+                new Node<> (3, Color.Black,
+                        new Node<>(1, Color.Red),
                         null),
-                new Node<Integer>(6, Color.Black));
+                new Node<>(6, Color.Black));
 
         actual = Operations.remove(actual, 1);
 
@@ -307,11 +306,11 @@ class OperationsTest {
 
     @Test
     void remove_root_theTreesBalanced() {
-        Node<Integer> expected = new Node<Integer>(3, Color.Black,
+        Node<Integer> expected = new Node<>(3, Color.Black,
                 new Node<>(1, Color.Red),
                 null);
 
-        Node<Integer> actual = new Node<Integer>(2, Color.Black,
+        Node<Integer> actual = new Node<>(2, Color.Black,
                 new Node<>(1, Color.Black),
                 new Node<>(3, Color.Black));
 
@@ -328,11 +327,11 @@ class OperationsTest {
      */
     @Test
     void remove_rightLeaf_onlyTheReferenceShouldChange() {
-        Node<Integer> expected = new Node<Integer>(2, Color.Black,
+        Node<Integer> expected = new Node<>(2, Color.Black,
                 new Node<>(1, Color.Red),
                 null);
 
-        Node<Integer> actual = new Node<Integer>(2, Color.Black,
+        Node<Integer> actual = new Node<>(2, Color.Black,
                 new Node<>(1, Color.Black),
                 new Node<>(3, Color.Black));
 
@@ -349,9 +348,9 @@ class OperationsTest {
      */
     @Test
     void remove_rootWithLeftChildOnly_treeIsBalanced() {
-        Node<Integer> expected = new Node<Integer>(1, Color.Black);
+        Node<Integer> expected = new Node<>(1, Color.Black);
 
-        Node<Integer> actual = new Node<Integer>(2, Color.Black,
+        Node<Integer> actual = new Node<>(2, Color.Black,
                 new Node<>(1, Color.Black),
                 null);
 
@@ -367,9 +366,9 @@ class OperationsTest {
      */
     @Test
     void remove_rootWithRightChildOnly_treeIsBalanced() { // test calls fixUpCase3
-        Node<Integer> expected = new Node<Integer>(3, Color.Black);
+        Node<Integer> expected = new Node<>(3, Color.Black);
 
-        Node<Integer> actual = new Node<Integer>(2, Color.Black,
+        Node<Integer> actual = new Node<>(2, Color.Black,
                 null,
                 new Node<>(3, Color.Black));
 
@@ -399,11 +398,11 @@ class OperationsTest {
     */
     @Test
     void remove_removeNodeWithLeftChildOnly_treeIsBalanced() {
-        Node<Integer> expected = new Node<Integer>(5, Color.Black,
+        Node<Integer> expected = new Node<>(5, Color.Black,
                 new Node<>(3, Color.Black),
                 new Node<>(6, Color.Black));
 
-        Node<Integer> actual = new Node<Integer>(5, Color.Black,
+        Node<Integer> actual = new Node<>(5, Color.Black,
                 new Node<>(4, Color.Red,
                         new Node<>(3, Color.Black),
                         null),
@@ -452,17 +451,17 @@ class OperationsTest {
 
     @Test
     void remove_rootOfLargerTree_theTreeIsBalanced() {
-        Node<Integer> expected = new Node<Integer>(8, Color.Black,
+        Node<Integer> expected = new Node<>(8, Color.Black,
                 new Node<>(5, Color.Black),
                 new Node<>(12, Color.Black,
                         new Node<>(10, Color.Red),
                         null));
 
-        Node<Integer> actual = new Node<Integer>(7, Color.Black,
-                new Node<Integer>(5, Color.Black),
-                new Node<Integer>(10, Color. Black,
-                        new Node<Integer>(8, Color.Red),
-                        new Node<Integer>(12, Color.Red)));
+        Node<Integer> actual = new Node<>(7, Color.Black,
+                new Node<>(5, Color.Black),
+                new Node<>(10, Color. Black,
+                        new Node<>(8, Color.Red),
+                        new Node<>(12, Color.Red)));
 
         actual = Operations.remove(actual, 7);
         assertEquals(expected, actual, "");
@@ -594,10 +593,10 @@ class OperationsTest {
 
     @Test
     void remove_valueNotInTree_noChange() {
-        Node<Integer> expected = new Node<Integer>(2, Color.Black,
+        Node<Integer> expected = new Node<>(2, Color.Black,
                 new Node<>(1, Color.Black),
                 new Node<>(3, Color.Black));
-        Node<Integer> actual = new Node<Integer>(2, Color.Black,
+        Node<Integer> actual = new Node<>(2, Color.Black,
                 new Node<>(1, Color.Black),
                 new Node<>(3, Color.Black));
 
@@ -622,7 +621,7 @@ class OperationsTest {
                 new Node<>(2, Color.Black,
                         new Node<>(1, Color.Black),
                         new Node<>(5, Color.Black,
-                                new Node<Integer>(3, Color.Red),
+                                new Node<>(3, Color.Red),
                                 null)),
                 new Node<>(10, Color.Black,
                         new Node<>(8, Color.Red,
@@ -679,17 +678,17 @@ class OperationsTest {
                                 new Node<>(11, Color.Red),
                                 null)));
 
-        Node<Integer> expected = new Node<Integer>(6, Color.Black,
-                new Node<Integer>(4, Color.Black,
-                        new Node<Integer>(2, Color.Red,
-                                new Node<Integer>(1, Color.Black),
-                                new Node<Integer>(3, Color.Black)),
-                        new Node<Integer>(5, Color.Black)),
-                new Node<Integer>(10,Color.Black,
-                        new Node<Integer>(8, Color.Red,
-                                new Node<Integer>(7, Color.Black),
-                                new Node<Integer>(9, Color.Black)),
-                        new Node<Integer>(11, Color.Black)));
+        Node<Integer> expected = new Node<>(6, Color.Black,
+                new Node<>(4, Color.Black,
+                        new Node<>(2, Color.Red,
+                                new Node<>(1, Color.Black),
+                                new Node<>(3, Color.Black)),
+                        new Node<>(5, Color.Black)),
+                new Node<>(10,Color.Black,
+                        new Node<>(8, Color.Red,
+                                new Node<>(7, Color.Black),
+                                new Node<>(9, Color.Black)),
+                        new Node<>(11, Color.Black)));
 
         actual = Operations.remove(actual, 12);
         assertEquals(expected, actual, "The tree is balanced");
@@ -708,27 +707,27 @@ class OperationsTest {
     */
     @Test
     void remove_fixUpCase3RedRed_treeIsBalanced() {
-        Node<Integer> expected = new Node<Integer>(8,Color.Black,
-                new Node<Integer>(5, Color.Black,
-                        new Node<Integer>(3, Color.Red,
+        Node<Integer> expected = new Node<>(8,Color.Black,
+                new Node<>(5, Color.Black,
+                        new Node<>(3, Color.Red,
                                 new Node<>(1),
                                 null),
                         new Node<>(6, Color.Black)),
-                new Node<Integer>(10, Color.Black,
+                new Node<>(10, Color.Black,
                         null,
                         new Node<>(12, Color.Black)));
 
-        Node<Integer> actual = new Node<Integer>(10, Color.Black,
-                new Node<Integer>(5, Color.Black,
-                        new Node<Integer>(3, Color.Red,
+        Node<Integer> actual = new Node<>(10, Color.Black,
+                new Node<>(5, Color.Black,
+                        new Node<>(3, Color.Red,
                                 new Node<>(1, Color.Black),
                                 null),
-                        new Node<Integer>(8, Color.Red,
+                        new Node<>(8, Color.Red,
                                 new Node<>(6, Color.Black),
                                 null)),
-                new Node<Integer>(11,Color.Black,
+                new Node<>(11,Color.Black,
                         null,
-                        new Node<Integer>(12, Color.Black)));
+                        new Node<>(12, Color.Black)));
 
         actual = Operations.remove(actual, 11);
 
