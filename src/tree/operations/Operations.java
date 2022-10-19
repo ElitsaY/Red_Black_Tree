@@ -119,8 +119,7 @@ public class Operations {
             parentNode = node.parent();
             if (Node.getColor(parentNode.left()) == Color.Black) {
                 //ensure left leaning property
-                node = Rotation.flipLeft(parentNode);
-                parentNode = node.parent();
+                parentNode = Rotation.flipLeft(parentNode);
             }
             if (Node.getColor(parentNode) == Color.Black) {
                 break; // no red-red edge

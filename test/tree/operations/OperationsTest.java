@@ -267,6 +267,15 @@ class OperationsTest {
                 "After multiples adds the actual tree is valid RB tree. All operations tested");
     }
 
+    @Test
+    void add_NumbersFromArray_FixUpFlipLeft() {
+        int[] arr = {1,5,4,0,3,2};
+        Node<Integer> root = null;
+
+        for (int i : arr) {
+            root = Operations.add(root, i);
+        }
+    }
 
     /*
        [] = red node
